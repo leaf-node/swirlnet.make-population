@@ -24,6 +24,11 @@ excess and disjoint genes.
 The connection weight of the gene is still inheritable from either parent if
 both have it.
 
+Removing this feature greatly increased the rate at which solutions to the XOR
+problem were found.
+
+### Future plans
+
 A planned feature of swirljs will be to allow use of disablement toggling as a
 type of post-crossover random mutation, if desired.
 This should avoid the above mentioned problems while offering a useful means of
