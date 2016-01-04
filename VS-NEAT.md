@@ -29,3 +29,13 @@ type of post-crossover random mutation, if desired.
 This should avoid the above mentioned problems while offering a useful means of
 generating further genetic diversity.
 
+## Genomes with equal fitness
+
+If two genomes with equal fitness scores are undergoing crossover, one of them
+is selected as the fitter genome in swirljs.
+Excess and disjoint genes are inherited from the 'fitter' parent instead of
+randomly inheriting disjoint and excess genes from both.
+
+Removing this feature greatly increased the rate at which solutions to the XOR
+problem are found.
+

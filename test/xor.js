@@ -40,8 +40,6 @@ genomeSettings = {
     "weightPerturbanceRate": 0.9,
     "addNodeMutationRate": 0.03,
     "addLinkMutationRate": 0.05,
-
-    "inheritRandomNonMatchingRate": 0.25,
 };
 
 fitnessTarget = 0.9;
