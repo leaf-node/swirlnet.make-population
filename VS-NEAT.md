@@ -42,5 +42,5 @@ Excess and disjoint genes are inherited from the 'fitter' parent instead of
 randomly inheriting disjoint and excess genes from both.
 
 Removing this feature greatly increased the rate at which solutions to the XOR
-problem are found.
+problem were found.
 
