@@ -45,8 +45,7 @@ genomeSettings = {
     "inheritRandomNonMatchingRate": 0.25,
 };
 
-fitnessTarget = 15;
-okError = 0.3;
+fitnessTarget = 0.9;
 
 maxGenerations = 200;
 
@@ -87,7 +86,7 @@ main = function () {
             diff2 = Math.abs(1 - out2);
             diff3 = Math.abs(out3);
 
-            fitness = Math.pow((4 - diff0 - diff1 - diff2 - diff3), 2);
+            fitness = (1 - diff0) * (1 - diff1) * (1 - diff2) * (1 - diff3);
 
             genePool.setFitness(net.getGenomeID(), fitness);
 
