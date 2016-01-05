@@ -23,23 +23,24 @@ var swirljs, genomeSettings, netSettings,
 
 swirljs = require('../lib/index.js');
 
+// settings are optional
 netSettings = {"sigmoidSteepness": 4.9};
 
 genomeSettings = {
 
-    "populationSize": 150,
-    "compatibilityThreshold": 4.0,
-    "mutationPower": 2.5,
-    "disjointCoefficient": 1.0,
-    "excessCoefficient": 1.0,
-    "weightDifferenceCoefficient": 0.4,
+    "populationSize":               150,
+    "survivalThreshold":            0.2,
 
-    "survivalThreshold": 0.2,
+    "disjointCoefficient":          1.0,
+    "excessCoefficient":            1.0,
+    "weightDifferenceCoefficient":  0.4,
+    "compatibilityThreshold":       4.0,
 
-    "weightMutationRate": 0.8,
-    "weightPerturbanceRate": 0.9,
-    "addNodeMutationRate": 0.03,
-    "addLinkMutationRate": 0.05,
+    "mutationPower":                2.5,
+    "weightMutationRate":           0.8,
+    "weightPerturbanceRate":        0.9,
+    "addNodeMutationRate":          0.03,
+    "addLinkMutationRate":          0.05
 };
 
 fitnessTarget = 0.9;
