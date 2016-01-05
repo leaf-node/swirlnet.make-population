@@ -107,7 +107,9 @@ solveXOR = function (fitnessTarget, maxGenerations) {
         console.log("generation: " + (i + 1) + "  best fitness so far: " + bestFitness);
     }
 
+    console.log();
     console.log("no winner found in " + i + " generations. best fitness: " + bestFitness);
+    console.log();
 };
 
 runNet = function (net, input0, input1) {
