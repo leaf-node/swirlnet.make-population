@@ -21,7 +21,7 @@ var swirljs, genomeSettings, netSettings,
     main, runXOR,
     fitnessTarget, maxGenerations, okError;
 
-swirljs = require('../lib/swirl.js');
+swirljs = require('../lib/index.js');
 
 netSettings = {"sigmoidSteepness": 4.9};
 
