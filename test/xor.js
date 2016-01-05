@@ -17,10 +17,14 @@
 
 "use strict";
 
-var swirljs, genomeSettings, netSettings,
-    main, runXOR,
-    fitnessTarget, maxGenerations, okError;
+var swirljs, solveXOR, runNet,
+    genomeSettings, netSettings,
+    fitnessTarget, maxGenerations,
+    results;
 
+
+// when using this library:
+// swirljs = require('swirljs');
 swirljs = require('../lib/index.js');
 
 // settings are optional
@@ -43,16 +47,13 @@ genomeSettings = {
     "addLinkMutationRate":          0.05
 };
 
-fitnessTarget = 0.9;
+solveXOR = function (fitnessTarget, maxGenerations) {
 
-maxGenerations = 200;
-
-main = function () {
-
-    var i, j, bestNet, bestGenome, bestFitness, genomes, genome, genePool,
-        net, swirlNetJSON, fitness,
-        out0, out1, out2, out3, results,
-        diff0, diff1, diff2, diff3;
+    var i, j, genePool, genomes, genome,
+        net, swirlNetJSON,
+        fitness, bestFitness,
+        out0, out1, out2, out3,
+        error0, error1, error2, error3;
 
     genePool = swirljs.makeGenePool(genomeSettings);
 
@@ -60,8 +61,6 @@ main = function () {
     genePool.setOutputCount(1);
 
     for (i = 0; i < maxGenerations; i += 1) {
-
-        console.log("generation: " + i);
 
         genomes = genePool.getGenomes();
 
@@ -74,66 +73,44 @@ main = function () {
             swirlNetJSON = swirljs.growNet(genome);
             net = swirljs.startNet(swirlNetJSON, netSettings);
 
-            out0 = runXOR(net, 0, 0);
-            out1 = runXOR(net, 0, 1);
-            out2 = runXOR(net, 1, 0);
-            out3 = runXOR(net, 1, 1);
+            out0 = runNet(net, 0, 0);
+            out1 = runNet(net, 0, 1);
+            out2 = runNet(net, 1, 0);
+            out3 = runNet(net, 1, 1);
 
-            diff0 = Math.abs(out0);
-            diff1 = Math.abs(1 - out1);
-            diff2 = Math.abs(1 - out2);
-            diff3 = Math.abs(out3);
+            error0 = Math.abs(out0);
+            error1 = Math.abs(1 - out1);
+            error2 = Math.abs(1 - out2);
+            error3 = Math.abs(out3);
 
-            fitness = (1 - diff0) * (1 - diff1) * (1 - diff2) * (1 - diff3);
-
+            fitness = (1 - error0) * (1 - error1) * (1 - error2) * (1 - error3);
             genePool.setFitness(net.getGenomeID(), fitness);
 
             if (fitness > fitnessTarget) {
 
-                results = [out0, out1, out2, out3];
-                bestFitness = fitness;
-                bestNet = swirlNetJSON;
-                bestGenome = genome;
-
-                console.log("winner found after " + i + " generations, with fitness " + bestFitness + ":");
                 console.log();
-                console.log(bestNet);
-                console.log(bestGenome);
+                console.log("winner found after " + (i + 1) + " generations with fitness: " + fitness);
                 console.log();
-                console.log(results);
+                console.log("winning network:");
+                console.log();
+                console.log(swirlNetJSON);
+                console.log();
 
                 return;
             }
 
-            if (fitness > bestFitness) {
-
-                bestFitness = fitness;
-                results = JSON.stringify([out0, out1, out2, out3]);
-
-                bestFitness = fitness;
-                bestNet = swirlNetJSON;
-                bestGenome = genome;
-            }
+            bestFitness = (fitness > bestFitness) ? fitness : bestFitness;
         }
 
         genePool.reproduce();
 
-        console.log("best fitness so far: " + bestFitness);
-        console.log(results);
-        console.log();
+        console.log("generation: " + (i + 1) + "  best fitness so far: " + bestFitness);
     }
 
-    console.log("no winner found in " + i + " generations.");
-    console.log();
-    console.log(bestNet);
-    console.log(bestGenome);
-    console.log(bestFitness);
-    console.log();
-    console.log(results);
-
+    console.log("no winner found in " + i + " generations. best fitness: " + bestFitness);
 };
 
-runXOR = function (net, input0, input1) {
+runNet = function (net, input0, input1) {
 
     var i;
 
@@ -147,5 +124,5 @@ runXOR = function (net, input0, input1) {
     return net.getOutputs()[0];
 };
 
-main();
+solveXOR(0.9, 100);
 
