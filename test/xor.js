@@ -49,20 +49,20 @@ genomeSettings = {
 
 solveXOR = function (fitnessTarget, maxGenerations) {
 
-    var i, j, genePool, genomes, genome,
+    var i, j, population, genomes, genome,
         net, swirlNetJSON,
         fitness, bestFitness,
         out0, out1, out2, out3,
         error0, error1, error2, error3;
 
-    genePool = swirljs.makeGenePool(genomeSettings);
+    population = swirljs.makePopulation(genomeSettings);
 
-    genePool.setInputCount(2);
-    genePool.setOutputCount(1);
+    population.setInputCount(2);
+    population.setOutputCount(1);
 
     for (i = 0; i < maxGenerations; i += 1) {
 
-        genomes = genePool.getGenomes();
+        genomes = population.getGenomes();
 
         bestFitness = 0;
 
@@ -84,7 +84,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
             error3 = Math.abs(out3);
 
             fitness = (1 - error0) * (1 - error1) * (1 - error2) * (1 - error3);
-            genePool.setFitness(net.getGenomeID(), fitness);
+            population.setFitness(net.getGenomeID(), fitness);
 
             if (fitness > fitnessTarget) {
 
@@ -102,7 +102,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
             bestFitness = (fitness > bestFitness) ? fitness : bestFitness;
         }
 
-        genePool.reproduce();
+        population.reproduce();
 
         console.log("generation: " + (i + 1) + "  best fitness so far: " + bestFitness);
     }
