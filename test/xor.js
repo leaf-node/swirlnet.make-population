@@ -20,7 +20,11 @@
 var swirljs, solveXOR, runNet,
     genomeSettings, netSettings,
     fitnessTarget, maxGenerations,
-    results;
+    results, targetFitness, maxGenerations;
+
+
+targetFitness = 0.9;
+maxGenerations = 100;
 
 
 // when using this library:
@@ -55,10 +59,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
         out0, out1, out2, out3,
         error0, error1, error2, error3;
 
-    population = swirljs.makePopulation(genomeSettings);
-
-    population.setInputCount(2);
-    population.setOutputCount(1);
+    population = swirljs.makePopulation(2, 1, genomeSettings);
 
     for (i = 0; i < maxGenerations; i += 1) {
 
@@ -126,5 +127,5 @@ runNet = function (net, input0, input1) {
     return net.getOutputs()[0];
 };
 
-solveXOR(0.9, 100);
+solveXOR(targetFitness, maxGenerations);
 
