@@ -42,7 +42,7 @@ genomeSettings = {
     "disjointCoefficient":          1.0,
     "excessCoefficient":            1.0,
     "weightDifferenceCoefficient":  0.4,
-    "compatibilityThreshold":       4.0,
+    "compatibilityThreshold":       3.0,
 
     "mutationPower":                2.5,
     "weightMutationRate":           0.8,
