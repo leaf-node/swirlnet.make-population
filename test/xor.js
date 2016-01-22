@@ -15,16 +15,15 @@
 // limitations under the License.
 
 
-"use strict";
-
 var swirljs, solveXOR, runNet,
     genomeSettings, netSettings,
     fitnessTarget, maxGenerations,
-    results, targetFitness, maxGenerations;
+    results, targetFitness, maxGenerations,
+    getXORFitness;
 
 
 targetFitness = 0.9;
-maxGenerations = 100;
+maxGenerations = 200;
 
 
 // when using this library:
@@ -53,11 +52,11 @@ genomeSettings = {
 
 solveXOR = function (fitnessTarget, maxGenerations) {
 
+    "use strict";
+
     var i, j, population, genomes, genome,
         net, swirlNetJSON,
-        fitness, bestFitness,
-        out0, out1, out2, out3,
-        error0, error1, error2, error3;
+        fitness, bestFitness;
 
     population = swirljs.makePopulation(2, 1, genomeSettings);
 
@@ -74,17 +73,8 @@ solveXOR = function (fitnessTarget, maxGenerations) {
             swirlNetJSON = swirljs.growNet(genome);
             net = swirljs.startNet(swirlNetJSON, netSettings);
 
-            out0 = runNet(net, 0, 0);
-            out1 = runNet(net, 0, 1);
-            out2 = runNet(net, 1, 0);
-            out3 = runNet(net, 1, 1);
+            fitness = getXORFitness(net, 5, 10);
 
-            error0 = Math.abs(out0);
-            error1 = Math.abs(1 - out1);
-            error2 = Math.abs(1 - out2);
-            error3 = Math.abs(out3);
-
-            fitness = (1 - error0) * (1 - error1) * (1 - error2) * (1 - error3);
             population.setFitness(net.getGenomeID(), fitness);
 
             if (fitness > fitnessTarget) {
@@ -113,14 +103,44 @@ solveXOR = function (fitnessTarget, maxGenerations) {
     console.log();
 };
 
-runNet = function (net, input0, input1) {
+getXORFitness = function (net, minIterations, maxIterations) {
+
+    "use strict";
+
+    var fitness, iterations,
+        out0, out1, out2, out3,
+        error0, error1, error2, error3;
+
+    fitness = 1;
+
+    for (iterations = minIterations; iterations <= maxIterations; iterations += 1) {
+
+        out0 = runNet(net, iterations, 0, 0);
+        out1 = runNet(net, iterations, 0, 1);
+        out2 = runNet(net, iterations, 1, 0);
+        out3 = runNet(net, iterations, 1, 1);
+
+        error0 = Math.abs(out0);
+        error1 = Math.abs(1 - out1);
+        error2 = Math.abs(1 - out2);
+        error3 = Math.abs(out3);
+
+        fitness *= (1 - error0) * (1 - error1) * (1 - error2) * (1 - error3);
+    }
+
+    return fitness;
+};
+
+runNet = function (net, iterations, input0, input1) {
+
+    "use strict";
 
     var i;
 
     net.flush();
     net.setInputs([input0, input1]);
 
-    for (i = 0; i < 5; i += 1) {
+    for (i = 0; i < iterations; i += 1) {
         net.step();
     }
 
