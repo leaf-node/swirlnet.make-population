@@ -82,7 +82,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
             if (fitness > fitnessTarget) {
 
                 console.log();
-                console.log("winner found after " + (i + 1) + " generations with fitness: " + fitness);
+                console.log("winner found in " + (i + 1) + " generations with fitness: " + fitness);
                 console.log();
                 console.log("winning network:");
                 console.log();
