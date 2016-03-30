@@ -1,4 +1,4 @@
-#! /usr/bin/env nodejs
+#! /usr/bin/env node
 
 // Copyright 2016 Andrew Engelbrecht
 //

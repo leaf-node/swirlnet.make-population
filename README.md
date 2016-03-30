@@ -15,7 +15,7 @@ The API of swirljs is currently unstable.
 
 See the `xor.js` file for a demonstration of swirljs' capability.
 
-    $ nodejs ./test/xor.js
+    $ node ./test/xor.js
 
 ## License
 
