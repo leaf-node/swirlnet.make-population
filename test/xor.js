@@ -58,6 +58,8 @@ solveXOR = function (fitnessTarget, maxGenerations) {
         net, swirlNetJSON,
         fitness, bestFitness;
 
+    // arg 0: input count
+    // arg 1: output count
     population = swirljs.makePopulation(2, 1, genomeSettings);
 
     for (i = 0; i < maxGenerations; i += 1) {
