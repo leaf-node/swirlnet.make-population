@@ -109,44 +109,54 @@ getXORFitness = function (net, minIterations, maxIterations) {
 
     "use strict";
 
-    var fitness, iterations,
-        out0, out1, out2, out3,
-        error0, error1, error2, error3;
+    var results0, results1, results2, results3,
+        fitness0, fitness1, fitness2, fitness3,
+        fitness, multiply, absOneMinus;
 
     fitness = 1;
 
-    for (iterations = minIterations; iterations <= maxIterations; iterations += 1) {
+    multiply = function (a, b) { return a * b; };
+    absOneMinus = function (x) { return Math.abs(1 - x); };
 
-        out0 = runNet(net, iterations, 0, 0);
-        out1 = runNet(net, iterations, 0, 1);
-        out2 = runNet(net, iterations, 1, 0);
-        out3 = runNet(net, iterations, 1, 1);
+    results0 = runNet(net, minIterations, maxIterations, 0, 0);
+    results1 = runNet(net, minIterations, maxIterations, 1, 1);
+    results2 = runNet(net, minIterations, maxIterations, 0, 1);
+    results3 = runNet(net, minIterations, maxIterations, 1, 0);
 
-        error0 = Math.abs(out0);
-        error1 = Math.abs(1 - out1);
-        error2 = Math.abs(1 - out2);
-        error3 = Math.abs(out3);
+    // fitness of 1 for values of 0
+    fitness0 = results0.map(absOneMinus).reduce(multiply);
+    fitness1 = results1.map(absOneMinus).reduce(multiply);
+    // fitness of 1 for values of 1
+    fitness2 = results2.map(Math.abs).reduce(multiply);
+    fitness3 = results3.map(Math.abs).reduce(multiply);
 
-        fitness *= (1 - error0) * (1 - error1) * (1 - error2) * (1 - error3);
-    }
+    fitness *= fitness0 * fitness1 * fitness2 * fitness3;
 
     return fitness;
 };
 
-runNet = function (net, iterations, input0, input1) {
+runNet = function (net, minIterations, maxIterations, input0, input1) {
 
     "use strict";
 
-    var i;
+    var i, results;
+
+    results = [];
 
     net.flush();
     net.setInputs([input0, input1]);
 
-    for (i = 0; i < iterations; i += 1) {
+    for (i = 0; i < maxIterations; i += 1) {
+
         net.step();
+
+        if (i >= minIterations - 1) {
+            results.push(net.getOutputs()[0]);
+        }
+
     }
 
-    return net.getOutputs()[0];
+    return results;
 };
 
 solveXOR(targetFitness, maxGenerations);
