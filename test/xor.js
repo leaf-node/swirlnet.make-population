@@ -55,7 +55,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
     "use strict";
 
     var i, j, population, genomes, genome,
-        net, swirlNetJSON,
+        net, phenotype,
         fitness, bestFitness;
 
     // arg 0: input count
@@ -72,8 +72,8 @@ solveXOR = function (fitnessTarget, maxGenerations) {
 
             genome = genomes[j];
 
-            swirlNetJSON = swirljs.growNet(genome);
-            net = swirljs.startNet(swirlNetJSON, netSettings);
+            phenotype = swirljs.growNet(genome);
+            net = swirljs.startNet(phenotype, netSettings);
 
             fitness = getXORFitness(net, 5, 10);
 
@@ -86,7 +86,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
                 console.log();
                 console.log("winning network:");
                 console.log();
-                console.log(swirlNetJSON);
+                console.log(phenotype);
                 console.log();
 
                 return;
