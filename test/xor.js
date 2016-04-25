@@ -15,7 +15,7 @@
 // limitations under the License.
 
 
-var swirljs, solveXOR, runNet,
+var swirlnet, solveXOR, runNet,
     genomeSettings, netSettings,
     fitnessTarget, maxGenerations,
     results, targetFitness, maxGenerations,
@@ -27,8 +27,8 @@ maxGenerations = 200;
 
 
 // when using this library:
-// swirljs = require('swirljs');
-swirljs = require('../lib/index.js');
+// swirlnet = require('swirlnet');
+swirlnet = require('../lib/index.js');
 
 // settings are optional
 netSettings = {"sigmoidSteepness": 4.9};
@@ -60,7 +60,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
 
     // arg 0: input count
     // arg 1: output count
-    population = swirljs.makePopulation(2, 1, genomeSettings);
+    population = swirlnet.makePopulation(2, 1, genomeSettings);
 
     for (i = 0; i < maxGenerations; i += 1) {
 
@@ -72,8 +72,8 @@ solveXOR = function (fitnessTarget, maxGenerations) {
 
             genome = genomes[j];
 
-            phenotype = swirljs.growNet(genome);
-            net = swirljs.startNet(phenotype, netSettings);
+            phenotype = swirlnet.growNet(genome);
+            net = swirlnet.startNet(phenotype, netSettings);
 
             fitness = getXORFitness(net, 5, 10);
 

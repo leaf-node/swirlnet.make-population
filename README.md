@@ -1,4 +1,4 @@
-# swirljs
+# swirlnet
 
 This library evolves neural networks that may perform well at some control
 tasks.
@@ -9,11 +9,11 @@ For an incomplete list of differences, refer to the `VS-NEAT.md` file.
 
 ## Status
 
-The API of swirljs is currently unstable.
+The API of swirlnet is currently unstable.
 
 ## Usage
 
-See the `xor.js` file for a demonstration of swirljs' capability.
+See the `xor.js` file for a demonstration of swirlnet's capability.
 
     $ node ./test/xor.js
 
