@@ -47,7 +47,9 @@ genomeSettings = {
     "weightMutationRate":           0.8,
     "weightPerturbanceRate":        0.9,
     "addNodeMutationRate":          0.03,
-    "addLinkMutationRate":          0.05
+    "addLinkMutationRate":          0.05,
+
+    "allowRecursion":               false
 };
 
 solveXOR = function (fitnessTarget, maxGenerations) {
