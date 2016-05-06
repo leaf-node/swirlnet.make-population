@@ -22,18 +22,13 @@ structure will then regularly be disrupted both ways.
 swirlnet treats disablement as structural change.
 Disablement status is inherited from the fitter parent's genome along with its
 excess and disjoint genes.
+Random toggling of connection disablement is used by swirlnet as an asexual
+mutation.
 The connection weight of the gene is still inheritable from either parent if
 both have it.
 
-Removing this feature greatly increased the rate at which solutions to the XOR
-problem were found.
-
-### Future plans
-
-A planned feature of swirlnet will be to allow use of disablement toggling as a
-type of post-crossover random mutation, if desired.
-This should avoid the above mentioned problems while offering a useful means of
-generating further genetic diversity.
+Removing this feature greatly increased the rate at which solutions to a prior
+(naive) version of the XOR problem were found.
 
 ## Genomes with equal fitness
 
@@ -42,6 +37,6 @@ is selected as the fitter genome in swirlnet.
 Excess and disjoint genes are inherited from the 'fitter' parent instead of
 randomly inheriting disjoint and excess genes from both.
 
-Removing this feature greatly increased the rate at which solutions to the XOR
-problem were found.
+Removing this feature greatly increased the rate at which solutions to a prior
+(naive) version of the XOR problem were found.
 
