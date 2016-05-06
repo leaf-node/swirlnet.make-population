@@ -7,14 +7,15 @@ excluded or changed.
 
 The original [NEAT](http://www.cs.ucf.edu/~kstanley/neat.html)
 [paper](http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf) suggests
-that new genomes produced through crossover should randomly inherit or not
-inherit the 'disabled' status of a connection gene if it is disabled in either
+that new genomes produced through crossover should randomly inherit (or not
+inherit) the disablement of a connection gene if it is disabled in either
 parent, regardless of parental fitness.
 
-This leads to a choice between frequently inheriting disablement from weaker
-parents or rarely inheriting disablement from fitter parents.
+This leads to a choice between rather frequently inheriting disablement from
+parents, including weak ones about as frequently as fit ones; or rarely
+inheriting disablement from parents, including fit ones.
 Neither option is appealing, as both options will frequently disrupt effective
-structure.
+structures.
 Attempting to compromise with a fifty percent chance will not fully succeed, as
 structure will then regularly be disrupted both ways.
 
