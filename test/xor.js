@@ -31,8 +31,6 @@ maxGenerations = 200;
 swirlnet = require('../lib/index.js');
 
 // settings are optional
-netSettings = {"sigmoidSteepness": 4.9};
-
 genomeSettings = {
 
     "populationSize":               150,
@@ -75,7 +73,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
             genome = genomes[j];
 
             phenotype = swirlnet.growNet(genome);
-            net = swirlnet.startNet(phenotype, netSettings);
+            net = swirlnet.startNet(phenotype);
 
             fitness = getXORFitness(net, 5, 10);
 
