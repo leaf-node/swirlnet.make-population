@@ -15,6 +15,11 @@
 // limitations under the License.
 
 
+// This program evolves neural networks with two inputs and one output. The
+// target behavior is mimicry of the logical XOR function. Inputs of 0,0 and
+// 1,1 should produce 0, whereas inputs of 1,0 and 0,1 should produce 1.
+
+
 var swirlnet, solveXOR, runNet,
     genomeSettings, netSettings,
     fitnessTarget, maxGenerations,
@@ -50,6 +55,7 @@ genomeSettings = {
     "allowRecursion":               false
 };
 
+// search for fittest genome solving XOR challenge
 solveXOR = function (fitnessTarget, maxGenerations) {
 
     "use strict";
@@ -72,11 +78,14 @@ solveXOR = function (fitnessTarget, maxGenerations) {
 
             genome = genomes[j];
 
+            // converts from genotype to phenotype format
             phenotype = swirlnet.genoToPheno(genome);
+            // creates network object
             net = swirlnet.makeNet(phenotype);
 
             fitness = getXORFitness(net, 5, 10);
 
+            // sets genome fitness which influences genome reproduction
             population.setFitness(net.getGenomeID(), fitness);
 
             if (fitness > fitnessTarget) {
@@ -105,6 +114,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
     console.log();
 };
 
+// test each test case for multiple iterations and return the overall fitness
 getXORFitness = function (net, minIterations, maxIterations) {
 
     "use strict";
@@ -123,10 +133,10 @@ getXORFitness = function (net, minIterations, maxIterations) {
     results2 = runNet(net, minIterations, maxIterations, 0, 1);
     results3 = runNet(net, minIterations, maxIterations, 1, 0);
 
-    // fitness of 1 for values of 0
+    // fitness of 1 for outputs of 0
     fitness0 = results0.map(absOneMinus).reduce(multiply);
     fitness1 = results1.map(absOneMinus).reduce(multiply);
-    // fitness of 1 for values of 1
+    // fitness of 1 for outputs of 1
     fitness2 = results2.map(Math.abs).reduce(multiply);
     fitness3 = results3.map(Math.abs).reduce(multiply);
 
@@ -135,6 +145,7 @@ getXORFitness = function (net, minIterations, maxIterations) {
     return fitness;
 };
 
+// run a test case and collect outputs from multiple iterations
 runNet = function (net, minIterations, maxIterations, input0, input1) {
 
     "use strict";
@@ -143,14 +154,19 @@ runNet = function (net, minIterations, maxIterations, input0, input1) {
 
     results = [];
 
+    // sets all cell states to 0
     net.flush();
+    // sets states of input cells
     net.setInputs([input0, input1]);
 
     for (i = 0; i < maxIterations; i += 1) {
 
+        // activate neural network by propogating state from each neuron to
+        // each of its downstream neurons
         net.step();
 
         if (i >= minIterations - 1) {
+            // getOutputs(): get list of output neuron states
             results.push(net.getOutputs()[0]);
         }
 
