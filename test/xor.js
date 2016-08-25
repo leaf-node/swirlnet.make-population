@@ -86,7 +86,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
                 console.log();
                 console.log("winning network:");
                 console.log();
-                console.log(phenotype);
+                console.log(JSON.parse(phenotype));
                 console.log();
 
                 return;
