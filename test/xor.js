@@ -72,8 +72,8 @@ solveXOR = function (fitnessTarget, maxGenerations) {
 
             genome = genomes[j];
 
-            phenotype = swirlnet.growNet(genome);
-            net = swirlnet.startNet(phenotype);
+            phenotype = swirlnet.genoToPheno(genome);
+            net = swirlnet.makeNet(phenotype);
 
             fitness = getXORFitness(net, 5, 10);
 
