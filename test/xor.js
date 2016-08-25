@@ -62,17 +62,20 @@ solveXOR = function (fitnessTarget, maxGenerations) {
 
     var i, j, population, genomes, genome,
         net, phenotype,
-        fitness, bestFitness;
+        fitness, bestFitness,
+        bestFitnessThisGeneration;
 
     // arg 0: input count
     // arg 1: output count
     population = swirlnet.makePopulation(2, 1, genomeSettings);
 
+    bestFitness = 0;
+
     for (i = 0; i < maxGenerations; i += 1) {
 
         genomes = population.getGenomes();
 
-        bestFitness = 0;
+        bestFitnessThisGeneration = 0;
 
         for (j = 0; j < genomes.length; j += 1) {
 
@@ -101,12 +104,13 @@ solveXOR = function (fitnessTarget, maxGenerations) {
                 return;
             }
 
-            bestFitness = (fitness > bestFitness) ? fitness : bestFitness;
+            bestFitnessThisGeneration = (fitness > bestFitnessThisGeneration) ? fitness : bestFitnessThisGeneration;
         }
 
-        population.reproduce();
+        console.log("generation: " + (i + 1) + "  best fitness: " + bestFitnessThisGeneration);
+        bestFitness = (bestFitness > bestFitnessThisGeneration) ? bestFitness : bestFitnessThisGeneration;
 
-        console.log("generation: " + (i + 1) + "  best fitness so far: " + bestFitness);
+        population.reproduce();
     }
 
     console.log();
