@@ -22,7 +22,7 @@ of these problematic scenarios.
 This is caused by an effective double bind due to there being only one
 probability covering multiple scenarios.
 
-swirlnet gives you flexible options through six probability settings.
+swirlnet gives you flexible options through seven probability settings.
 
 * Firstly, you have the option of of using these settings to disable the
   special inheritence rules for gene disablement.
@@ -55,7 +55,9 @@ acccording to whether the fitter or weaker parent has the disabled gene.
 * You may set the gene enablement rate for cases in which both parents' genes
   are disabled.
 
-* You can also set the frequency of asexual gene disablement toggling.
+* You can also set the frequency of asexual gene disablement toggling with two
+  settings, one for the rate of enablement, the other for the rate of
+disablement.
 
 * Tweaking these settings allows you to follow the same, or a similar, approach
   as the one outlined in the original NEAT paper.
