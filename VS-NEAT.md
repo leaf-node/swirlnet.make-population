@@ -68,10 +68,11 @@ connection weight is randomly inherited from either parent.
 ## Genomes with equal fitness
 
 If two genomes with equal fitness scores are undergoing crossover, one of them
-is selected as the fitter genome in swirlnet.
+is treated as the fitter genome by swirlnet.
 Excess and disjoint genes are inherited from the 'fitter' parent instead of
 randomly inheriting disjoint and excess genes from both.
 
-Removing this feature greatly increased the rate at which solutions to a prior
-(naive) version of the XOR problem were found.
+Removing this feature decreased code complexity and increased the rate at which
+solutions to a prior (albeit naive) version of the XOR problem were found. This
+feature may be readded later if found to be useful.
 
