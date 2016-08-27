@@ -46,9 +46,12 @@ genomeSettings = {
     "weightDifferenceCoefficient":  0.4,
     "compatibilityThreshold":       3.0,
 
-    "mutationPower":                2.5,
-    "weightMutationRate":           0.8,
-    "weightPerturbanceRate":        0.9,
+    "genomeWeightMutationRate":     0.8,
+    "geneWeightPerturbanceRate":    0.4,
+
+    "weightPerturbanceVariance":    1.0,
+    "randomWeightVariance":         5.0,
+
     "addNodeMutationRate":          0.03,
     "addLinkMutationRate":          0.05,
 
