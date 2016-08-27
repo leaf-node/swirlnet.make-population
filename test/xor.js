@@ -168,12 +168,11 @@ runNet = function (net, minIterations, maxIterations, input0, input1) {
 
     for (i = 0; i < maxIterations; i += 1) {
 
-        // activate neural network by propogating state from each neuron to
-        // each of its downstream neurons
+        // step network forward by propogating signals to downstream nodes
         net.step();
 
         if (i >= minIterations - 1) {
-            // getOutputs(): get list of output neuron states
+            // getOutputs(): get list of output node states
             results.push(net.getOutputs()[0]);
         }
 
