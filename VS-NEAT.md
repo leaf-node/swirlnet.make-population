@@ -88,3 +88,9 @@ and perturbing connection weights (differently for each mutating connection
 gene) during genome weight mutation.
 This approach gave better performance in the XOR challenge.
 
+## Other differences
+
+There are likely many other unmentioned ways in which this library differs from
+NEAT, as described in the original paper, and the various implementations of
+NEAT. Some of those difference may be minor, others may be significant.
+
