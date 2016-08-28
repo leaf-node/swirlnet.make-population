@@ -20,49 +20,71 @@ var defaults;
 // a patch and pushing your changes upstream.
 
 defaults = {};
+
+// number of genomes in a population
 defaults.populationSize                     = 100;
 
-defaults.survivalThreshold                  = 0.2;
+// whether to allow the existence of recurrent networks
+defaults.allowRecursion                     = true;
 
+// fraction of parents in a species that survive to reproduce
+defaults.survivalThreshold                  = 0.2;
+// when species population is greater than this, the speicies champion is copied unmodified
+defaults.championCloneThreshold             = 5;
+
+// constants used in speciation equation
 defaults.disjointCoefficient                = 1.0;
 defaults.excessCoefficient                  = 1.0;
 defaults.weightDifferenceCoefficient        = 0.4;
 
+// also used in speciation equation
 defaults.compatibilityThreshold             = 3.0;
 defaults.compatibilityModifier              = 0.0;
 
+// rate at which genomes are selected to mutate any of their connection weights
 defaults.genomeWeightMutationRate           = 0.8;
+// rate at which such genomes mutate individual connection weight genes
 defaults.geneWeightPerturbanceRate          = 0.4;
 
+// the variance of random connection weight changes
 defaults.weightPerturbanceVariance          = 1.0;
+// the variance of new random connection weights
 defaults.randomWeightVariance               = 5.0;
 
+// structural mutation rates
 defaults.addNodeMutationRate                = 0.03;
 defaults.addLinkMutationRate                = 0.05;
 
+// rate at which genomes reproduce asexually only
+defaults.asexualReproductionOnlyRate        = 0.25;
+
+// rate at which matching genes are selected from fitter genome
+defaults.fitterGenomeInheritanceRate        = 0.5;
+
+
+// rate of random connection gene disablement toggling
 defaults.randomDisablementRate              = 0.00;
 defaults.randomEnablementRate               = 0.00;
 
-defaults.asexualReproductionOnlyRate        = 0.25;
-
-defaults.fitterGenomeInheritanceRate        = 0.5;
-
-defaults.championCloneThreshold             = 5;
-
-defaults.allowRecursion                     = true;
-
-
+// rate at which gene enablement in a fitter genome is forced onto the child's gene
 defaults.fitterGenomeEnablementOverrideRate     = 1.0;
+// rate at which gene disablement in a weaker genome is forced onto the child's gene
 defaults.weakerGenomeDisablementOverrideRate    = 0.0;
 
+// rate at which gene disablement in a fitter genome is forced onto the child's gene
 defaults.fitterGenomeDisablementOverrideRate    = 1.0;
+// rate at which gene enablement in a weaker genome is forced onto the child's gene
 defaults.weakerGenomeEnablementOverrideRate     = 0.0;
 
+// rate at which gene enablement is forced onto the child's gene if neither parent's gene is enabled.
 defaults.neitherGenomeEnablementOverrideRate    = 0.0;
 
 
-// settings for running networks:
+// settings for network functionality
+//
+// steepness of sigmoidal curve used by network nodes to modulate input
 defaults.sigmoidSteepness                   = 4.9;
+// the automatic "bias" node input value (should not be 0)
 defaults.biasValue                          = 1;
 
 
