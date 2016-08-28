@@ -33,7 +33,7 @@ maxGenerations = 200;
 
 // when using this library:
 // swirlnet = require('swirlnet');
-swirlnet = require('../lib/index.js');
+swirlnet = require('../src/index.js');
 
 // settings are optional
 genomeSettings = {
