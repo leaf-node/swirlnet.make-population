@@ -21,7 +21,7 @@ prior changes.
         genomeSettings = {
 
             "populationSize":   150,
-            "allowRecursion":   true
+            "allowRecurrent":   true
         };
 
 To get started, make a new population. The first argument is the number of

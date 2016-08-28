@@ -25,7 +25,7 @@ defaults = {};
 defaults.populationSize                     = 100;
 
 // whether to allow the existence of recurrent networks
-defaults.allowRecursion                     = true;
+defaults.allowRecurrent                     = true;
 
 // fraction of parents in a species that survive to reproduce
 defaults.survivalThreshold                  = 0.2;

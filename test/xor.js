@@ -55,7 +55,7 @@ genomeSettings = {
     "addNodeMutationRate":          0.03,
     "addLinkMutationRate":          0.05,
 
-    "allowRecursion":               false
+    "allowRecurrent":               false
 };
 
 // search for fittest genome solving XOR challenge

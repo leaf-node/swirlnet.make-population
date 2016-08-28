@@ -146,7 +146,7 @@ randomlyInsertNode = function (genome) {
 };
 
 // adds a connection between two random unconnected nodes
-// and gives them a random weight. recursive connections
+// and gives them a random weight. recurrent connections
 // may be disallowed.
 addRandomConnection = function (genome) {
 
@@ -154,9 +154,9 @@ addRandomConnection = function (genome) {
 
     var nodePair, upstream, downstream,
         unconnected, randomSelection, i,
-        allowRecursion;
+        allowRecurrent;
 
-    allowRecursion = settings.getSetting("allowRecursion");
+    allowRecurrent = settings.getSetting("allowRecurrent");
 
     unconnected = listUnconnectedNodes(genome);
 
@@ -168,7 +168,7 @@ addRandomConnection = function (genome) {
         upstream = nodePair[0];
         downstream = nodePair[1];
 
-        if (!allowRecursion && willBeCyclic(genome, upstream, downstream)) {
+        if (!allowRecurrent && willBeCyclic(genome, upstream, downstream)) {
 
             unconnected.splice(randomSelection, 1);
 
@@ -270,7 +270,7 @@ isConnected = function (genome, upstream, downstream) {
     return false;
 };
 
-// returns true if genome will have recursive connections if a connection is
+// returns true if genome will have recurrent connections if a connection is
 // made between the specified upstream and dowstream nodes
 willBeCyclic = function (genome, upstream, downstream) {
 
