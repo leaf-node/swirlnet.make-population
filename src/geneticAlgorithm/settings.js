@@ -16,7 +16,7 @@ var defaults, settings, defaults,
     initSettings, getSetting, getSettings,
     util;
 
-defaults = require('./defaults.js');
+defaults = require('../defaults.js');
 
 util = require('../util.js');
 
