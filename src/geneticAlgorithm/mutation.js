@@ -279,6 +279,8 @@ willBeCyclic = function (genome, upstream, downstream) {
     var innovationNums, genes, connections, paths;
 
     // it's ok if both upstream and downstream are undefined, but not just one.
+    // if no upstream or downstream nodes are specified,
+    // the network is analyzed as is.
     console.assert((((upstream !== null && downstream !== null)
             && (upstream !== undefined && downstream !== undefined))
             || (upstream === undefined && downstream === undefined)),
