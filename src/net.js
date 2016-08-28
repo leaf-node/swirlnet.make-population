@@ -190,7 +190,6 @@ makeNet = function (unparsed_phenotype) {
     that.setInputs = setInputs;
     that.getOutputs = getOutputs;
     that.getGenomeID = getGenomeID;
-    that.getNodeCount = getNodeCount;
     that.getNodeStates = getNodeStates;
 
     // returns hash table of public functions as new object ready for use
