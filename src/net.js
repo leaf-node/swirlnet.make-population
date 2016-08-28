@@ -23,7 +23,7 @@ makeNet = function (unparsed_phenotype) {
     "use strict";
 
     var setInputs, step, getOutputs,
-        getCellStates, getCellCount,
+        getNodeStates, getNodeCount,
         getGenomeID, phenotype,
         init, flush,
         functions, accurateFunctions,
@@ -47,7 +47,7 @@ makeNet = function (unparsed_phenotype) {
         var cell;
 
         state = [];
-        for (cell = 0; cell < getCellCount(); cell += 1) {
+        for (cell = 0; cell < getNodeCount(); cell += 1) {
             state.push(0);
         }
     };
@@ -84,12 +84,12 @@ makeNet = function (unparsed_phenotype) {
 
         // sets incoming activity array to zero for all cells
         incoming = [];
-        for (cell = 0; cell < getCellCount(); cell += 1) {
+        for (cell = 0; cell < getNodeCount(); cell += 1) {
             incoming.push(0);
         }
 
         // calculates incoming activity for all cells
-        for (cell = 0; cell < getCellCount(); cell += 1) {
+        for (cell = 0; cell < getNodeCount(); cell += 1) {
 
             for (target in phenotype.connections[cell]) {
                 if (phenotype.connections[cell].hasOwnProperty(target)) {
@@ -134,12 +134,12 @@ makeNet = function (unparsed_phenotype) {
     };
 
     // dumps state of every cell
-    getCellStates = function () {
+    getNodeStates = function () {
         return util.copy(state);
     };
 
-    // gets number of cells in network
-    getCellCount = function () {
+    // gets number of nodes in network
+    getNodeCount = function () {
         return phenotype.cellCount;
     };
 
@@ -166,8 +166,8 @@ makeNet = function (unparsed_phenotype) {
     that.setInputs = setInputs;
     that.getOutputs = getOutputs;
     that.getGenomeID = getGenomeID;
-    that.getCellCount = getCellCount;
-    that.getCellStates = getCellStates;
+    that.getNodeCount = getNodeCount;
+    that.getNodeStates = getNodeStates;
 
     // returns hash table of public functions as new object ready for use
     return that;

@@ -94,13 +94,13 @@ Returns the current generation number:
 
         population.getCurrentGenerationNumber()
 
-Returns a list of internal cell states ordered by phenotype cell number:
+Returns a list of internal node states ordered by phenotype node number:
 
-        net.getCellStates()
+        net.getNodeStates()
 
-Returns the number of cells in the network:
+Returns the number of nodes in the network:
 
-        net.getCellCount()
+        net.getNodeCount()
 
 Returns the genomeID of the network which may be used for setting fitness:
 
