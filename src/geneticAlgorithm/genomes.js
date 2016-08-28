@@ -168,6 +168,7 @@ makeGenome = function (genomeID, generationID, speciesHint) {
         var genomeObj = {};
         genomeObj.format = "swirlnetGenome";
         genomeObj.version = swirlnetGenomeVersion;
+        genomeObj.type = "classic";
         genomeObj.generation = getGenerationID();
         genomeObj.speciesID = getSpeciesID();
         genomeObj.genomeID = getGenomeID();

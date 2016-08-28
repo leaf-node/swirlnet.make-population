@@ -34,6 +34,9 @@ genoToPheno = function (swirlnetGenome) {
 
     genome = JSON.parse(swirlnetGenome);
 
+    console.assert(genome.type === "classic",
+            "swirlnet: internal error: invalid genome type: " + genome.type);
+
     phenotype = {
         "format": "swirlnetPhenotype",
         "version": swirlnetPhenotypeVersion,
