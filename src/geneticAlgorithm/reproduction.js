@@ -64,9 +64,9 @@ reproduce = function (population) {
         offset = 0;
         for (i = 0; i < offspringCount; i += 1) {
 
-            // copy unmodified champion of species with population >= 5
-            // (specified by original NEAT paper)
-            if (i === 0 && speciation.getSpeciesMemberCount(population, species) >= 5) {
+            // copy unmodified champion of species with sufficiently large population
+            // (mentioned in original NEAT paper)
+            if (i === 0 && speciation.getSpeciesMemberCount(population, species) > settings.getSetting("championCloneThreshold")) {
 
                 speciesChampion = parents[0].spawn(nextNewGenomeID, getCurrentGenerationNumber());
                 offspring.push(speciesChampion);

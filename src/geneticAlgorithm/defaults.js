@@ -47,6 +47,8 @@ defaults.asexualReproductionOnlyRate        = 0.25;
 
 defaults.fitterGenomeInheritanceRate        = 0.5;
 
+defaults.championCloneThreshold             = 5;
+
 defaults.allowRecursion                     = true;
 
 
