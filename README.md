@@ -11,7 +11,9 @@ For an incomplete list of differences, refer to the `VS-NEAT.md` file.
 
 The API of swirlnet is currently unstable.
 
-## Usage
+## Use
+
+See the `API.md` file for a description of the public API.
 
 See the `xor.js` file for a demonstration of swirlnet's capability.
 
