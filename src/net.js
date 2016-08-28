@@ -59,7 +59,7 @@ makeNet = function (unparsed_phenotype) {
         inputs = list;
     };
 
-    // steps network forward by propogating signals to downstream nodes
+    // steps network forward by propagating signals to downstream nodes
     step = function (stepCount) {
         var i, cell, func, target, weight, incoming;
 

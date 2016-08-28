@@ -168,7 +168,7 @@ runNet = function (net, minIterations, maxIterations, input0, input1) {
 
     for (i = 0; i < maxIterations; i += 1) {
 
-        // step network forward by propogating signals to downstream nodes
+        // step network forward by propagating signals to downstream nodes
         net.step();
 
         if (i >= minIterations - 1) {
