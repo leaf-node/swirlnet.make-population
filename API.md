@@ -72,7 +72,7 @@ results but be aware that some recurrent networks do not stabilize.
         fitness = results0[0] * results1[0];
 
 Set genome fitness. This determines which genomes reproduce to create the next
-generation.
+generation. (genomeIDs start at `0`)
 
         population.setFitness(net.getGenomeID(), fitness);
 
@@ -90,7 +90,7 @@ For a full example, see the `./test/xor.js` program.
 
 ## Other methods
 
-Returns the current generation number:
+Returns the current generation number (generation numbers start at `0`):
 
         population.getCurrentGenerationNumber()
 
@@ -101,10 +101,6 @@ Returns a list of internal node states ordered by phenotype node number:
 Returns the number of nodes in the network:
 
         net.getNodeCount()
-
-Returns the genomeID of the network which may be used for setting fitness:
-
-        net.getGenomeID()
 
 ## Default settings
 
