@@ -161,9 +161,9 @@ runNet = function (net, minIterations, maxIterations, input0, input1) {
 
     results = [];
 
-    // sets all cell states to 0
+    // sets all node states to 0
     net.flush();
-    // sets states of input cells
+    // sets states of input nodes
     net.setInputs([input0, input1]);
 
     for (i = 0; i < maxIterations; i += 1) {

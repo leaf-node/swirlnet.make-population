@@ -42,12 +42,12 @@ makeNet = function (unparsed_phenotype) {
                     "swirlnet: internal error: invalid number of bias nodes: " + phenotype.roles.bias.length + " (should be 1)");
     };
 
-    // sets state of every cell to zero
+    // sets state of every node to zero
     flush = function () {
-        var cell;
+        var node;
 
         state = [];
-        for (cell = 0; cell < getNodeCount(); cell += 1) {
+        for (node = 0; node < getNodeCount(); node += 1) {
             state.push(0);
         }
     };
@@ -61,7 +61,7 @@ makeNet = function (unparsed_phenotype) {
 
     // steps network forward by propagating signals to downstream nodes
     step = function (stepCount) {
-        var i, cell, func, target, weight, incoming;
+        var i, node, func, target, weight, incoming;
 
         if (stepCount === undefined) {
             stepCount = 1;
@@ -72,30 +72,30 @@ makeNet = function (unparsed_phenotype) {
 
         // applies bias
         if (phenotype.roles.bias !== undefined) {
-            cell = phenotype.roles.bias[0];
-            state[cell] = phenotype.settings.biasValue;
+            node = phenotype.roles.bias[0];
+            state[node] = phenotype.settings.biasValue;
         }
 
         // applies inputs
         for (i = 0; i < inputs.length; i += 1) {
-            cell = phenotype.roles.input[i];
-            state[cell] = inputs[i];
+            node = phenotype.roles.input[i];
+            state[node] = inputs[i];
         }
 
-        // sets incoming activity array to zero for all cells
+        // sets incoming activity array to zero for all nodes
         incoming = [];
-        for (cell = 0; cell < getNodeCount(); cell += 1) {
+        for (node = 0; node < getNodeCount(); node += 1) {
             incoming.push(0);
         }
 
-        // calculates incoming activity for all cells
-        for (cell = 0; cell < getNodeCount(); cell += 1) {
+        // calculates incoming activity for all nodes
+        for (node = 0; node < getNodeCount(); node += 1) {
 
-            for (target in phenotype.connections[cell]) {
-                if (phenotype.connections[cell].hasOwnProperty(target)) {
+            for (target in phenotype.connections[node]) {
+                if (phenotype.connections[node].hasOwnProperty(target)) {
 
-                    weight = phenotype.connections[cell][target];
-                    incoming[target] += weight * state[cell];
+                    weight = phenotype.connections[node][target];
+                    incoming[target] += weight * state[node];
                 }
             }
         }
@@ -107,8 +107,8 @@ makeNet = function (unparsed_phenotype) {
                 for (i in phenotype.functions[func]) {
                     if (phenotype.functions[func].hasOwnProperty(i)) {
 
-                        cell = phenotype.functions[func][i];
-                        state[cell] = functions[func](incoming[cell]);
+                        node = phenotype.functions[func][i];
+                        state[node] = functions[func](incoming[node]);
                     }
                 }
             }
@@ -122,18 +122,18 @@ makeNet = function (unparsed_phenotype) {
 
     // fetches output values
     getOutputs = function () {
-        var i, cell, outputs;
+        var i, node, outputs;
 
         outputs = [];
         for (i = 0; i < phenotype.roles.output.length; i += 1) {
 
-            cell = phenotype.roles.output[i];
-            outputs.push(state[cell]);
+            node = phenotype.roles.output[i];
+            outputs.push(state[node]);
         }
         return outputs;
     };
 
-    // dumps state of every cell
+    // dumps state of every node
     getNodeStates = function () {
         return util.copy(state);
     };
@@ -160,13 +160,13 @@ makeNet = function (unparsed_phenotype) {
         return phenotype.genomeID;
     };
 
-    // cell activation functions -- accurate versions
+    // node activation functions -- accurate versions
     accurateFunctions = {};
     accurateFunctions.sigmoid = function (x) {
         return 1 / (1 + Math.exp(-phenotype.settings.sigmoidSteepness * x));
     };
 
-    // cell activation functions
+    // node activation functions
     functions = accurateFunctions;
 
     // executes init of object
