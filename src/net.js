@@ -27,7 +27,7 @@ makeNet = function (unparsed_phenotype) {
         getGenomeID, phenotype,
         init, flush,
         functions, accurateFunctions,
-        that, inputs, state;
+        that, inputs, state, nodeCount;
 
     // prepares new net object
     init = function () {
@@ -140,7 +140,20 @@ makeNet = function (unparsed_phenotype) {
 
     // gets number of nodes in network
     getNodeCount = function () {
-        return phenotype.cellCount;
+
+        var role;
+
+        if (nodeCount === undefined) {
+            nodeCount = 0;
+            for (role in phenotype.roles) {
+                if (phenotype.roles.hasOwnProperty(role)) {
+
+                    nodeCount += phenotype.roles[role].length;
+                }
+            }
+        }
+
+        return nodeCount;
     };
 
     getGenomeID = function () {

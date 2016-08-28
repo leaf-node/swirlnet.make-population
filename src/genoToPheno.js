@@ -25,7 +25,7 @@ genoToPheno = function (swirlnetGenome) {
     "use strict";
 
     var phenotype, genome,
-        cellCount, i, innovNumber,
+        i, innovNumber,
         activationFunction,
         weight, position,
         upstream, downstream, gene, role, nodeID,
@@ -39,7 +39,6 @@ genoToPheno = function (swirlnetGenome) {
         "version": swirlnetPhenotypeVersion,
         "generation": genome.generation,
         "genomeID": genome.genomeID,
-        "cellCount": -1,
         "roles": {"bias": [], "input": [], "output": [], "hidden": []},
         "functions": {},
         "connections": [],
@@ -58,8 +57,6 @@ genoToPheno = function (swirlnetGenome) {
 
         return innovationNodeIDMap[innovationNumber];
     };
-
-    cellCount = 0;
 
     for (i in genome.genes) {
         if (genome.genes.hasOwnProperty(i)) {
@@ -93,8 +90,6 @@ genoToPheno = function (swirlnetGenome) {
                     }
 
                     phenotype.connections[nodeID] = phenotype.connections[nodeID] || {};
-
-                    cellCount += 1;
 
                 } else if (gene[1] === "connection") {
 
@@ -135,8 +130,6 @@ genoToPheno = function (swirlnetGenome) {
 
     phenotype.settings.sigmoidSteepness = genome.netSettings.sigmoidSteepness;
     phenotype.settings.biasValue = genome.netSettings.biasValue;
-
-    phenotype.cellCount = cellCount;
 
     return JSON.stringify(phenotype);
 };
