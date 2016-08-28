@@ -32,9 +32,17 @@ makeNet = function (unparsed_phenotype) {
     // prepares new net object
     init = function () {
 
+        console.assert(typeof unparsed_phenotype === "string",
+                "swirlnet: internal error: invalid phenotype format. phenotype must be a string.");
+
         phenotype = JSON.parse(unparsed_phenotype);
         flush();
         inputs = [];
+
+        console.assert(phenotype.format === "swirlnetPhenotype",
+                "swirlnet: internal error: invalid phenotype format: " + phenotype.format);
+        console.assert(phenotype.version === "0.0",
+                "swirlnet: internal error: invalid phenotype version: " + phenotype.version);
 
         console.assert(phenotype.roles !== undefined
                 && phenotype.roles.bias !== undefined && phenotype.roles.input !== undefined

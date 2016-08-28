@@ -32,8 +32,15 @@ genoToPheno = function (swirlnetGenome) {
         nextNodeID, innovationNodeIDMap, getNodeID,
         node;
 
+    console.assert(typeof swirlnetGenome === "string",
+            "swirlnet: internal error: invalid format. genome must be a string.");
+
     genome = JSON.parse(swirlnetGenome);
 
+    console.assert(genome.format === "swirlnetGenome",
+            "swirlnet: internal error: invalid format: " + genome.format);
+    console.assert(genome.version === "0.0",
+            "swirlnet: internal error: invalid genome version: " + genome.version);
     console.assert(genome.type === "classic",
             "swirlnet: internal error: invalid genome type: " + genome.type);
 
