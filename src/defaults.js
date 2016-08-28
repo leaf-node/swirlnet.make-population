@@ -24,7 +24,7 @@ defaults = {};
 // number of genomes in a population
 defaults.populationSize                     = 100;
 
-// whether to allow the existence of recurrent networks
+// whether to allow recurrent networks
 defaults.allowRecurrent                     = true;
 
 // fraction of parents in a species that survive to reproduce
