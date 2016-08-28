@@ -36,6 +36,11 @@ makeNet = function (unparsed_phenotype) {
         flush();
         inputs = [];
 
+        console.assert(phenotype.roles !== undefined
+                && phenotype.roles.bias !== undefined && phenotype.roles.input !== undefined
+                && phenotype.roles.output !== undefined && phenotype.roles.hidden !== undefined,
+                    "swirlnet: internal error: 'roles' must contain bias, input, output and hidden members.");
+
         console.assert(phenotype.roles.output.length > 0,
                     "swirlnet: internal error: invalid number of output nodes: " + phenotype.roles.bias.length + " (should be greater than 0)");
         console.assert(phenotype.roles.bias.length === 1,
@@ -71,10 +76,8 @@ makeNet = function (unparsed_phenotype) {
                 "swirlnet: error: invalid number of steps to take: " + stepCount);
 
         // applies bias
-        if (phenotype.roles.bias !== undefined) {
-            node = phenotype.roles.bias[0];
-            state[node] = phenotype.settings.biasValue;
-        }
+        node = phenotype.roles.bias[0];
+        state[node] = phenotype.settings.biasValue;
 
         // applies inputs
         for (i = 0; i < inputs.length; i += 1) {
