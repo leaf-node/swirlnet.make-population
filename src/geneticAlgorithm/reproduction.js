@@ -57,7 +57,7 @@ reproduce = function (population) {
 
     offspringCounts.forEach(function (offspringCount, species) {
 
-        var i, index, parents, parent1, parent2, offset, speciesChampion;
+        var i, index, parents, parent1, parent2, offset, speciesChampion, randNum;
 
         parents = speciation.filterGenomesBySpecies(fittest, species);
 
@@ -79,12 +79,19 @@ reproduce = function (population) {
                 parent1 = parents.slice(index, index + 1)[0];
                 parent2 = parents[Math.floor(Math.random() * parents.length)];
 
-                if (Math.random() < settings.getSetting("asexualReproductionOnlyRate")) {
+                randNum = Math.random();
+
+                if (randNum < settings.getSetting("asexualReproductionOnlyRate")) {
 
                     newGenome = parent1.spawn(nextNewGenomeID, getCurrentGenerationNumber());
                     mutation.randomlyMutate(newGenome, true);
 
                 } else {
+
+                    if (randNum >= 1 - settings.getSetting("interspeciesMatingRate")) {
+
+                        parent2 = fittest[Math.floor(Math.random() * fittest.length)];
+                    }
 
                     newGenome = crossoverGenomes(nextNewGenomeID, parent1, parent2, getFitness(parent1), getFitness(parent2));
                     mutation.randomlyMutate(newGenome);

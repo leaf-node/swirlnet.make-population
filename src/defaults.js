@@ -45,6 +45,9 @@ defaults.normalizeCoefficients              = true;
 // is less than this number, do not normalize
 defaults.normalizationThreshold             = 20;
 
+// the rate at which genomes from different species reproduce
+defaults.interspeciesMatingRate             = 0.001;
+
 // threshold over which two genomes are considered different species
 defaults.compatibilityThreshold             = 3.0;
 // the amount by which this threshold changes per generation
