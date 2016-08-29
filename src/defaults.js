@@ -37,6 +37,14 @@ defaults.disjointCoefficient                = 1.0;
 defaults.excessCoefficient                  = 1.0;
 defaults.weightDifferenceCoefficient        = 0.4;
 
+// divide excess and disjoint terms by max gene count?  if set to false,
+// you may want to pick smaller disjoint and excess coefficients
+// and/or set a greater compatibilityThreshold and compatibilityModifier
+defaults.normalizeCoefficients              = true;
+// if normalizing coefficients, then when the gene count
+// is less than this number, do not normalize
+defaults.normalizationThreshold             = 20;
+
 // threshold over which two genomes are considered different species
 defaults.compatibilityThreshold             = 3.0;
 // the amount by which this threshold changes per generation

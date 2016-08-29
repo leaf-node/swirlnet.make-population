@@ -76,7 +76,8 @@ compatibilityDistance = function (genome1, genome2) {
 
     var excessCount, disjointCount,
         maxGeneCount, avgWeightDifference,
-        compatDistance, disjointAndExcessCount;
+        compatDistance, disjointAndExcessCount,
+        normalizationFactor;
 
     console.assert(genome1 !== undefined, "genome1: " + genome1);
     console.assert(genome2 !== undefined, "genome2: " + genome2);
@@ -90,9 +91,16 @@ compatibilityDistance = function (genome1, genome2) {
 
     maxGeneCount = Math.max(countGenes(genome1), countGenes(genome2));
 
+    if (settings.getSetting("normalizeCoefficients")
+            && maxGeneCount >= settings.getSetting("normalizationThreshold")) {
+        normalizationFactor = maxGeneCount;
+    } else {
+        normalizationFactor = 1;
+    }
+
     compatDistance
-        = settings.getSetting("disjointCoefficient") * excessCount / maxGeneCount
-        + settings.getSetting("excessCoefficient") * disjointCount / maxGeneCount
+        = settings.getSetting("disjointCoefficient") * excessCount / normalizationFactor
+        + settings.getSetting("excessCoefficient") * disjointCount / normalizationFactor
         + settings.getSetting("weightDifferenceCoefficient") * avgWeightDifference;
 
     return compatDistance;
