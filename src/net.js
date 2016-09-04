@@ -26,7 +26,7 @@ makeNet = function (unparsed_phenotype) {
         getNodeStates, getNodeCount,
         getGenomeID, phenotype,
         init, flush,
-        functions, accurateFunctions,
+        activationFunctions, accurateFunctions,
         that, inputs, state, nodeCount;
 
     // prepares new net object
@@ -74,7 +74,7 @@ makeNet = function (unparsed_phenotype) {
 
     // steps network forward by propagating signals to downstream nodes
     step = function (stepCount) {
-        var i, node, func, target, weight, incoming;
+        var i, node, weight, incoming;
 
         if (stepCount === undefined) {
             stepCount = 1;
@@ -100,30 +100,32 @@ makeNet = function (unparsed_phenotype) {
         }
 
         // calculates incoming activity for all nodes
-        for (node = 0; node < getNodeCount(); node += 1) {
+        Object.keys(phenotype.connections).forEach(function (upstreamNode) {
 
-            for (target in phenotype.connections[node]) {
-                if (phenotype.connections[node].hasOwnProperty(target)) {
+            var weights;
 
-                    weight = phenotype.connections[node][target];
-                    incoming[target] += weight * state[node];
-                }
-            }
-        }
+            weights = phenotype.connections[upstreamNode];
+
+            Object.keys(weights).forEach(function (downstreamNode) {
+
+                weight = weights[downstreamNode];
+                incoming[downstreamNode] += weight * state[upstreamNode];
+            });
+        });
 
         // calculates new state with activation functions and incoming activity
-        for (func in phenotype.functions) {
-            if (phenotype.functions.hasOwnProperty(func)) {
+        Object.keys(phenotype.functions).forEach(function (functionName) {
 
-                for (i in phenotype.functions[func]) {
-                    if (phenotype.functions[func].hasOwnProperty(i)) {
+            var activationFunction, nodesUsingThisFunction;
 
-                        node = phenotype.functions[func][i];
-                        state[node] = functions[func](incoming[node]);
-                    }
-                }
-            }
-        }
+            activationFunction = activationFunctions[functionName];
+            nodesUsingThisFunction = phenotype.functions[functionName];
+
+            nodesUsingThisFunction.forEach(function (node) {
+
+                state[node] = activationFunction(incoming[node]);
+            });
+        });
 
         // recurse if multiple steps were specified
         if (stepCount > 1) {
@@ -133,14 +135,14 @@ makeNet = function (unparsed_phenotype) {
 
     // fetches output values
     getOutputs = function () {
-        var i, node, outputs;
+
+        var outputs;
 
         outputs = [];
-        for (i = 0; i < phenotype.roles.output.length; i += 1) {
-
-            node = phenotype.roles.output[i];
+        phenotype.roles.output.forEach(function (node) {
             outputs.push(state[node]);
-        }
+        });
+
         return outputs;
     };
 
@@ -152,17 +154,17 @@ makeNet = function (unparsed_phenotype) {
     // gets number of nodes in network
     getNodeCount = function () {
 
-        var role;
-
         if (nodeCount === undefined) {
-            nodeCount = 0;
-            for (role in phenotype.roles) {
-                if (phenotype.roles.hasOwnProperty(role)) {
 
-                    nodeCount += phenotype.roles[role].length;
-                }
-            }
+            nodeCount = 0;
+            Object.keys(phenotype.roles).forEach(function (role) {
+
+                nodeCount += phenotype.roles[role].length;
+            });
         }
+
+        console.assert(nodeCount === phenotype.connections.length,
+                "swirlnet: internal error: non-matching node counts in network.");
 
         return nodeCount;
     };
@@ -178,7 +180,7 @@ makeNet = function (unparsed_phenotype) {
     };
 
     // node activation functions
-    functions = accurateFunctions;
+    activationFunctions = accurateFunctions;
 
     // executes init of object
     init();
