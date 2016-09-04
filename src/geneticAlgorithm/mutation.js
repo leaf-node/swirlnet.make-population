@@ -36,7 +36,7 @@ randomlyMutate = function (genome, forceMutate) {
 
     "use strict";
 
-    var connections;
+    var connections, uniformPerturbance;
 
     console.assert(typeof forceMutate === "boolean" || forceMutate === undefined,
             "swirlnet: internal error: invalid non-boolean value for forceMutate: " + forceMutate);
@@ -44,13 +44,31 @@ randomlyMutate = function (genome, forceMutate) {
     if (Math.random() < settings.getSetting("genomeWeightMutationRate")
             || forceMutate === true) {
 
+        uniformPerturbance = gaussianRandomNumber(settings.getSetting("weightPerturbanceVariance"));
+
         connections = genome.getGeneInnovationNumbers("connection");
 
         connections.forEach(function (connection) {
 
-            if (Math.random() < settings.getSetting("geneWeightPerturbanceRate")) {
+            var randomNum, uniformPerturbRate, randomPerturbRate, randomResetRate;
+
+            randomNum = Math.random();
+
+            uniformPerturbRate = settings.getSetting("geneUniformWeightPerturbanceRate");
+            randomPerturbRate = settings.getSetting("geneRandomWeightPerturbanceRate");
+            randomResetRate = settings.getSetting("geneRandomWeightResetRate");
+
+            if (randomNum < uniformPerturbRate) {
+
+                perturbWeight(genome, connection, uniformPerturbance);
+
+            } else if (randomNum < uniformPerturbRate + randomPerturbRate) {
 
                 perturbWeight(genome, connection);
+
+            } else if (randomNum < uniformPerturbRate + randomPerturbRate + randomResetRate) {
+
+                randomizeWeight(genome, connection);
             }
         });
     }
@@ -309,14 +327,16 @@ willBeCyclic = function (genome, upstream, downstream) {
 };
 
 // changes weight of connection by random amount
-perturbWeight = function (genome, connection) {
+perturbWeight = function (genome, connection, perturbance) {
 
     "use strict";
 
-    var variance, perturbance;
+    var variance;
 
-    variance = settings.getSetting("weightPerturbanceVariance");
-    perturbance = gaussianRandomNumber(variance);
+    if (perturbance === undefined) {
+        variance = settings.getSetting("weightPerturbanceVariance");
+        perturbance = gaussianRandomNumber(variance);
+    }
 
     genome.getGene(connection).addToWeight(perturbance);
 };

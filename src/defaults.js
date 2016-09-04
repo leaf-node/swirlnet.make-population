@@ -55,8 +55,12 @@ defaults.compatibilityModifier              = 0.0;
 
 // rate at which genomes are selected to mutate any of their connection weights
 defaults.genomeWeightMutationRate           = 0.8;
-// rate at which such genomes mutate individual connection weight genes
-defaults.geneWeightPerturbanceRate          = 0.4;
+// rate at which such genomes mutate connection weight genes by perturbing a random amount uniform across affected genes
+defaults.geneUniformWeightPerturbanceRate   = 0.9;
+// rate at which such genomes mutate connection weight genes by perturbing a unique random amount
+defaults.geneRandomWeightPerturbanceRate    = 0.0;
+// rate at which such genomes mutate connection weight genes by resetting to a unique random amount
+defaults.geneRandomWeightResetRate          = 0.1;
 
 // the variance of random connection weight changes
 defaults.weightPerturbanceVariance          = 1.0;
