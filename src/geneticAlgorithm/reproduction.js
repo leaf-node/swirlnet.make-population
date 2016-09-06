@@ -12,14 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-var reproduce, countGenes, averageWeightDifference,
-    countDisjointAndExcess, genomeMaxInnovationNumber,
-    setFitness, getFitness,
-    crossoverGenomes,
-    chooseOffspringCounts,
-    getSurvivors,
-    init,
-    resetFitnessList,
+var reproduce, setFitness, getFitness,
+    crossoverGenomes, chooseOffspringCounts,
+    getSurvivors, init, resetFitnessList,
     bumpCurrentGenerationNumber,
     getCurrentGenerationNumber,
     settings, speciation, util, mutation, innovations,
