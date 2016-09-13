@@ -12,13 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-var copy, isInt;
+var clone, copy, isInt;
+
+clone = require('clone');
 
 copy = function (object) {
 
     "use strict";
 
-    return JSON.parse(JSON.stringify(object));
+    return clone(object, false);
 };
 
 isInt = function (number) {
