@@ -88,6 +88,50 @@ Repeat the above steps until you have a network that meets your fitness target
 For a full example, see the `./test/xor.js` program.
 
 
+## Novelty search
+
+[Novelty search](http://eplex.cs.ucf.edu/noveltysearch/userspage/) rewards
+networks for acting differently than their peers and those that came before
+them. Networks are rewarded by feeding their calculated "sparsity" (novelty)
+(or a combination of sparsity and fitness) to `population.setFitness()`.
+
+
+To create the archive for logging behaviors and measuring their sparsity:
+
+        archive = swirlnet.makeArchive(kNearestNeighbors, archiveThreshold [, behaviorDistanceFunction]);
+
+`kNearestNeighbors` specifies how many of one's nearest neighbors in behavior
+space to use in determining a behavior's sparsity.  `archiveThreshold`
+specifies how sparse a behavior must be for it to be archived.
+`behaviorDistanceFunction` is an optional custom function used to determine the
+distance between two behaviors. The default function measures the spacial
+distance between two behaviors as if they were points in multidimensional
+space.
+
+Add each behavior and genome pair of the current generation. The behaviour must
+be an array of numbers, equal in length to every other genome's behavior.
+
+        archive.noteBehavior(behavior, genome)
+
+To get the sparsities of each genome's behavior, use the following function.
+Sparsities are returned in the order they were added with `noteBehavior()`.
+
+        archive.getSparsities()
+
+To prepare for the next generation, this function adds highly sparse (novel)
+genomes to the archive and clears other recent behaviors:
+
+        archive.archiveAndClear()
+
+To get a copy of the current archive:
+
+        archive.getArchive()
+
+To get the length of the current archive:
+
+        archive.getArchiveLength()
+
+
 ## Other methods
 
 Returns the current generation number (generation numbers start at `0`):

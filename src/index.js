@@ -13,15 +13,17 @@
 // limitations under the License.
 
 
-var geneticAlgorithm, genoToPheno, net;
+var geneticAlgorithm, genoToPheno, net, archive;
 
 geneticAlgorithm    = require('./geneticAlgorithm/main.js');
 genoToPheno         = require('./genoToPheno.js');
 net                 = require('./net.js');
+archive             = require('./noveltySearch/archive.js');
 
 
 module.exports.makePopulation = geneticAlgorithm.makePopulation;
 module.exports.genoToPheno = genoToPheno.genoToPheno;
 module.exports.makeNet = net.makeNet;
+module.exports.makeArchive = archive.makeArchive;
 
 
