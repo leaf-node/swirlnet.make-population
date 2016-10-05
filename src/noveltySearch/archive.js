@@ -19,7 +19,7 @@ util = require('../util.js');
 
 
 // factory function that creates an archive object used for performing "novelty search"
-makeArchive = function (kNearestNeighbors, archiveThreshold, behaviorDistanceFunction) {
+makeArchive = function (options) {
 
     "use strict";
 
@@ -27,10 +27,14 @@ makeArchive = function (kNearestNeighbors, archiveThreshold, behaviorDistanceFun
         init, noteBehavior, getSparsities, archiveAndClear, getArchive, getArchiveLength,
         calculateSparsities, measureSparsity, defaultBehaviorDistanceFunction, measureBehaviorDistance;
 
-    console.assert(util.isInt(kNearestNeighbors) && kNearestNeighbors > 0,
-            "swirlnet: error: k nearest neighbors must be an integer greater than zero.");
-    console.assert(typeof behaviorDistanceFunction === "function" || behaviorDistanceFunction === undefined,
-            "swirlnet: error: behavior distance function must be a function or not specified (undefined).");
+    console.assert(typeof options === "object",
+            "swirlnet: error: novelty search options argument must be an object.");
+    console.assert(util.isInt(options.kNearestNeighbors) && options.kNearestNeighbors > 0,
+            "swirlnet: error: kNearestNeighbors option must be an integer greater than zero.");
+    console.assert(util.isInt(options.archiveThreshold) && options.archiveThreshold > 0,
+            "swirlnet: error: archiveThreshold must be an integer greater than zero.");
+    console.assert(typeof options.behaviorDistanceFunction === "function" || options.behaviorDistanceFunction === undefined,
+            "swirlnet: error: behaviorDistanceFunction must be a function or unspecified (undefined).");
 
     behaviorArchive = [];
     recentBehaviors = [];
@@ -39,10 +43,10 @@ makeArchive = function (kNearestNeighbors, archiveThreshold, behaviorDistanceFun
     // sets the distance function
     init = function () {
 
-        if (behaviorDistanceFunction === undefined) {
+        if (options.behaviorDistanceFunction === undefined) {
             measureBehaviorDistance = defaultBehaviorDistanceFunction;
         } else {
-            measureBehaviorDistance = behaviorDistanceFunction;
+            measureBehaviorDistance = options.behaviorDistanceFunction;
         }
     };
 
@@ -92,7 +96,7 @@ makeArchive = function (kNearestNeighbors, archiveThreshold, behaviorDistanceFun
         calculateSparsities();
 
         for (i = 0; i < recentBehaviors.length; i += 1) {
-            if (sparsities[i] >= archiveThreshold) {
+            if (sparsities[i] >= options.archiveThreshold) {
                 behaviorArchive.push(recentBehaviors[i]);
             }
         }
@@ -142,7 +146,7 @@ makeArchive = function (kNearestNeighbors, archiveThreshold, behaviorDistanceFun
             }
         }
 
-        effectiveKNearestNeighbors = (distances.length < kNearestNeighbors) ? distances.length : kNearestNeighbors;
+        effectiveKNearestNeighbors = (distances.length < options.kNearestNeighbors) ? distances.length : options.kNearestNeighbors;
 
         distances.sort(function (a, b) { return a - b; });
         distances = distances.slice(0, effectiveKNearestNeighbors);
