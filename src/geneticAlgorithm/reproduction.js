@@ -274,6 +274,7 @@ setFitness = function (genomeID, fitness) {
     "use strict";
 
     console.assert(typeof fitness === 'number' && !isNaN(fitness), "swirlnet: error: bad fitness: " + fitness);
+    console.assert(fitness >= 0, "swirlnet: error: fitness must not be negative: " + fitness);
 
     fitnessList[genomeID] = fitness;
 };
