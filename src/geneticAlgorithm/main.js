@@ -79,6 +79,8 @@ makePopulation = function (inputCount, outputCount, userSettings) {
     reproduce = function () {
 
         population = reproduction.reproduce(population);
+
+        console.assert(population.length === settings.getSetting("populationSize"), "swirlnet: internal error: invalid population size: " + population.length);
     };
 
     // returns the current generation number
