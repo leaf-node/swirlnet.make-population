@@ -80,7 +80,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
 
         genomes = population.getGenomes();
 
-        bestFitnessThisGeneration = 0;
+        bestFitnessThisGeneration = null;
 
         for (j = 0; j < genomes.length; j += 1) {
 
@@ -109,7 +109,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
                 return;
             }
 
-            bestFitnessThisGeneration = (fitness > bestFitnessThisGeneration) ? fitness : bestFitnessThisGeneration;
+            bestFitnessThisGeneration = (bestFitnessThisGeneration === null || fitness > bestFitnessThisGeneration) ? fitness : bestFitnessThisGeneration;
         }
 
         console.log("generation: " + (i + 1) + "  best fitness: " + bestFitnessThisGeneration);
