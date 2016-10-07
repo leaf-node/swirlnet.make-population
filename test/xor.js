@@ -23,7 +23,7 @@
 var swirlnet, solveXOR, runNet,
     genomeSettings, netSettings,
     fitnessTarget, maxGenerations,
-    results, targetFitness, maxGenerations,
+    targetFitness, maxGenerations,
     getXORFitness;
 
 
