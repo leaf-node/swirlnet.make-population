@@ -200,9 +200,15 @@ chooseOffspringCounts = function (population) {
         return (a + b);
     });
 
-    offspringPercentage = speciesScores.map(function (x) {
-        return x / adjustedFitnessSum;
-    });
+    if (adjustedFitnessSum !== 0) {
+        offspringPercentage = speciesScores.map(function (x) {
+            return x / adjustedFitnessSum;
+        });
+    } else {
+        offspringPercentage = speciation.getSpeciesList(population).map(function (memberCount) {
+            return memberCount / settings.getSetting("populationSize");
+        });
+    }
 
     offspringCounts = [];
     offspringCountSoFar = 0;
