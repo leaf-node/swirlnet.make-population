@@ -40,7 +40,7 @@ reproduce = function (population) {
 
     for (j = 0; j < settings.getSetting("populationSize"); j += 1) {
         fitness = getFitness(j);
-        console.assert(typeof fitness === 'number' && !isNaN(fitness), "bad fitness for genomeID " + j + ": " + fitness + ". set the fitness of every genome before reproduction.");
+        console.assert(typeof fitness === 'number' && !isNaN(fitness), "swirlnet: error: bad fitness for genomeID " + j + ": " + fitness + ". set the fitness of every genome before reproduction.");
     }
 
     nextNewGenomeID = 0;
@@ -273,7 +273,7 @@ setFitness = function (genomeID, fitness) {
 
     "use strict";
 
-    console.assert(typeof fitness === 'number' && !isNaN(fitness), "bad fitness: " + fitness);
+    console.assert(typeof fitness === 'number' && !isNaN(fitness), "swirlnet: error: bad fitness: " + fitness);
 
     fitnessList[genomeID] = fitness;
 };
