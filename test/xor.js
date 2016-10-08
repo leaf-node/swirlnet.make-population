@@ -112,7 +112,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
             bestFitnessThisGeneration = (bestFitnessThisGeneration === null || fitness > bestFitnessThisGeneration) ? fitness : bestFitnessThisGeneration;
         }
 
-        console.log("generation: " + (i + 1) + "  best fitness: " + bestFitnessThisGeneration);
+        console.log("generation: " + i + "  best fitness: " + bestFitnessThisGeneration);
         bestFitness = (bestFitness > bestFitnessThisGeneration) ? bestFitness : bestFitnessThisGeneration;
 
         population.reproduce();
