@@ -96,7 +96,7 @@ solveXOR = function (fitnessTarget, maxGenerations) {
             // sets genome fitness which influences genome reproduction
             population.setFitness(net.getGenomeID(), fitness);
 
-            if (fitness > fitnessTarget) {
+            if (fitness >= fitnessTarget) {
 
                 console.log();
                 console.log("winner found in " + (i + 1) + " generations with fitness: " + fitness);
