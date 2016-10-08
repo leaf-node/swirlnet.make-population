@@ -23,3 +23,7 @@ See the `xor.js` file for a demonstration of swirlnet's capability.
 
 This software is licensed under the Apache License, Version 2.0.
 
+Networks, genomes and phenotypes that you evolve with this library are released
+to you under CC0. In other words you may use them freely and without need for
+attribution.
+
