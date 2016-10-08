@@ -113,7 +113,7 @@ makeArchive = function (options) {
         console.assert(recentBehaviors.length > 0,
                 "swirlnet: error: recent behavior count must be greater than zero.");
         console.assert(sparsities.length === 0 || sparsities.length === recentBehaviors.length,
-                "swirlnet; error: sparsities may only be calculated once all behaviors have been added.");
+                "swirlnet: error: sparsities may only be calculated once all behaviors have been added.");
 
         if (sparsities.length !== recentBehaviors.length) {
 
