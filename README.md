@@ -5,6 +5,7 @@ tasks.
 
 It is quite similar to NEAT (NeuroEvolution of Augmenting Topologies), but some
 of its features are not implemented.
+swirlnet also implements basic novelty search functionality.
 For an incomplete list of differences, refer to the `VS-NEAT.md` file.
 
 ## Status
