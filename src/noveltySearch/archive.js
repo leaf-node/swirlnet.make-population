@@ -91,7 +91,7 @@ makeArchive = function (options) {
         return behaviorArchive.length;
     };
 
-    // archives novels genomes from the current generation and clears out the rest
+    // archives novel genomes from the current generation and clears out the rest
     // use this prior to adding behaviors of genomes in the next generation
     archiveAndClear = function () {
 
