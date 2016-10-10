@@ -156,14 +156,13 @@ Returns a list of internal node states ordered by phenotype node number:
 
         net.getNodeStates()
 
-Returns the number of nodes in the network:
+Returns the number of nodes in a network:
 
         net.getNodeCount()
 
 ## Default settings
 
-Most of these you won't need to worry about. To override any of these settings,
-refer to the method at the top of this page.
+To override any of these settings, refer to the method at the top of this page.
 
 Default settings and their values may be found in the `./src/defaults.js` file.
 Default settings and values may change in future versions of swirlnet. Refer to

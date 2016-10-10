@@ -13,9 +13,9 @@ The API of swirlnet is currently unstable.
 
 ## Use
 
-See the `API.md` file for a description of the public API.
+See the `API.md` file for a description of the API.
 
-See the `xor.js` file for a demonstration of swirlnet's capability.
+See the `test/xor.js` file for a demonstration of swirlnet's capability.
 
     $ node ./test/xor.js
 
