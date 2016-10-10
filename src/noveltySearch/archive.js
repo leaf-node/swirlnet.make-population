@@ -23,8 +23,8 @@ makeArchive = function (options) {
 
     "use strict";
 
-    var that, behaviorArchive, recentBehaviors, dimensionality, sparsities,
-        init, noteBehavior, getSparsities, archiveAndClear, getArchive, getArchiveLength,
+    var that, behaviorArchive, recentBehaviors, dimensionality, sparsities, maxArchiveSize,
+        init, noteBehavior, getSparsities, archiveAndClear, getArchive, getArchiveLength, pruneArchive,
         calculateSparsities, measureSparsity, defaultBehaviorDistanceFunction, measureBehaviorDistance;
 
     console.assert(typeof options === "object",
@@ -35,6 +35,8 @@ makeArchive = function (options) {
             "swirlnet: error: archiveThreshold must be an integer greater than zero.");
     console.assert(typeof options.behaviorDistanceFunction === "function" || options.behaviorDistanceFunction === undefined,
             "swirlnet: error: behaviorDistanceFunction must be a function or unspecified (undefined).");
+    console.assert((util.isInt(options.maxArchiveSize) && options.maxArchiveSize > 0) || options.maxArchiveSize === undefined,
+            "swirlnet: error: maxArchiveSize must be a positive integer or unspecified (undefined).");
 
     behaviorArchive = [];
     recentBehaviors = [];
@@ -42,6 +44,8 @@ makeArchive = function (options) {
 
     // sets the distance function
     init = function () {
+
+        maxArchiveSize = options.maxArchiveSize || Infinity;
 
         if (options.behaviorDistanceFunction === undefined) {
             measureBehaviorDistance = defaultBehaviorDistanceFunction;
@@ -101,8 +105,19 @@ makeArchive = function (options) {
             }
         }
 
+        pruneArchive();
+
         recentBehaviors = [];
         sparsities = [];
+    };
+
+    // removes early novel behaviors, leaving only
+    // maxArchiveSize novel behaviors in archive
+    pruneArchive = function () {
+
+        if (getArchiveLength() > maxArchiveSize) {
+            behaviorArchive.splice(0, getArchiveLength() - maxArchiveSize);
+        }
     };
 
     // calculates the sparsities of behaviors of genomes in this generation
