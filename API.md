@@ -98,15 +98,28 @@ them. Networks are rewarded by feeding their calculated "sparsity" (novelty)
 
 To create the archive for logging behaviors and measuring their sparsity:
 
-        archive = swirlnet.makeArchive(kNearestNeighbors, archiveThreshold [, behaviorDistanceFunction]);
+        options = {};
+        options.kNearestNeighbors = 15;
+        options.archiveThreshold = 6;
 
-`kNearestNeighbors` specifies how many of one's nearest neighbors in behavior
-space to use in determining a behavior's sparsity.  `archiveThreshold`
-specifies how sparse a behavior must be for it to be archived.
-`behaviorDistanceFunction` is an optional custom function used to determine the
-distance between two behaviors. The default function measures the spacial
-distance between two behaviors as if they were points in multidimensional
-space.
+        // optional settings:
+        options.maxArchiveSize = 400;
+        options.behaviorDistanceFunction = function (v1, v2) { ...; return scalar; };
+
+        archive = swirlnet.makeArchive(options);
+
+kNearestNeighbors` specifies how many of one's nearest neighbors in behavior
+space to use in determining a behavior's sparsity. archiveThreshold`specifies
+how sparse a behavior must be for it to be archived. maxArchiveSize sets the
+upper limit on the allowable size of the archive. When the archive grows beyond
+this size, the earlist members are pruned. The default size is Inifity. If your
+search typically produces tens of thousands of behaviors before finding a
+solution, you may want to reduce the maximum allowable archive size and/or
+increase the archive threshold. Finding sparsities becomes slow when there are
+many behaviors in an archive. behaviorDistanceFunction`is an optional custom
+function used to determine the distance between two behaviors. The default
+function measures the spacial distance between two behaviors as if they were
+points in multidimensional space.
 
 Add each behavior and genome pair of the current generation. The behaviour must
 be an array of numbers, equal in length to every other genome's behavior.
@@ -119,7 +132,8 @@ Sparsities are returned in the order they were added with `noteBehavior()`.
         archive.getSparsities()
 
 To prepare for the next generation, this function adds highly sparse (novel)
-genomes to the archive and clears other recent behaviors:
+genomes to the archive, clears out other recent behaviors and prunes the
+archive size if maxArchiveSize is set.
 
         archive.archiveAndClear()
 
