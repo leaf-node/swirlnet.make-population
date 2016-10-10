@@ -38,12 +38,12 @@ makeArchive = function (options) {
     console.assert((util.isInt(options.maxArchiveSize) && options.maxArchiveSize > 0) || options.maxArchiveSize === undefined,
             "swirlnet: error: maxArchiveSize must be a positive integer or unspecified (undefined).");
 
-    behaviorArchive = [];
-    recentBehaviors = [];
-    sparsities = [];
-
     // sets the distance function
     init = function () {
+
+        behaviorArchive = [];
+        recentBehaviors = [];
+        sparsities = [];
 
         maxArchiveSize = options.maxArchiveSize || Infinity;
 
