@@ -37,7 +37,8 @@ randomlyMutate = function (genome, forceMutate) {
 
     "use strict";
 
-    var connections, uniformPerturbance;
+    var connections, uniformPerturbance,
+        uniformPerturbRate, randomPerturbRate, randomResetRate;
 
     assert(typeof forceMutate === "boolean" || forceMutate === undefined,
             "swirlnet: internal error: invalid non-boolean value for forceMutate: " + forceMutate);
@@ -49,15 +50,15 @@ randomlyMutate = function (genome, forceMutate) {
 
         connections = genome.getGeneInnovationNumbers("connection");
 
+        uniformPerturbRate = settings.getSetting("geneUniformWeightPerturbanceRate");
+        randomPerturbRate = settings.getSetting("geneRandomWeightPerturbanceRate");
+        randomResetRate = settings.getSetting("geneRandomWeightResetRate");
+
         connections.forEach(function (connection) {
 
-            var randomNum, uniformPerturbRate, randomPerturbRate, randomResetRate;
+            var randomNum;
 
             randomNum = Math.random();
-
-            uniformPerturbRate = settings.getSetting("geneUniformWeightPerturbanceRate");
-            randomPerturbRate = settings.getSetting("geneRandomWeightPerturbanceRate");
-            randomResetRate = settings.getSetting("geneRandomWeightResetRate");
 
             if (randomNum < uniformPerturbRate) {
 
