@@ -76,17 +76,17 @@ Removing this feature decreased code complexity and increased the rate at which
 solutions to a prior (albeit naive) version of the XOR problem were found. This
 feature may be readded later if found to be useful.
 
-## Weight mutation without uniform perturbance
+## Weight mutation control
 
-When a genome's connection genes get mutated, swirlnet does not uniformly
-mutate connection weights.
-(The original NEAT paper suggested that when mutating connection weights in a
-genome to uniformly perturb connection weights 90% of the time and set the
-rest of the connection weights to random values.)
-swirlnet uses gaussian distributions for randomizing weights of new connections
-and perturbing connection weights (differently for each mutating connection
-gene) during genome weight mutation.
-This approach gave better performance in the XOR challenge.
+swirlnet offers expanded options for controlling weight mutation compared to
+suggestions in the original NEAT paper.
+One has the option of setting the uniform gene perturbance, unique gene
+perturbance and unique gene weight reset rates.
+The sum of these rates may be less than 1 in order to allow some weights in a
+genome undergoing weight mutation to remain unmutated.
+
+swirlnet uses gaussian distributions to set new weights and perturb existing
+ones.
 
 ## Other differences
 
