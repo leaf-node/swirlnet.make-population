@@ -12,11 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-var genes, util, settings, makeGenome, swirlnetGenomeVersion;
+var genes, util, settings, makeGenome, swirlnetGenomeVersion, assert;
 
 util = require('../util.js');
 genes = require('./genes.js');
 settings = require('./settings.js');
+assert = require('assert');
 
 swirlnetGenomeVersion = "0.0";
 
@@ -31,11 +32,11 @@ makeGenome = function (genomeID, generationID, speciesHint) {
         getGene, getGeneSlot, getGeneCopy, setSpeciesID, addGene, overwriteGene,
         stringify, copy, copyHelper, spawn;
 
-    console.assert(util.isInt(genomeID),
+    assert(util.isInt(genomeID),
             "swirlnet: internal error: invalid genomeID: " + genomeID);
-    console.assert(util.isInt(generationID),
+    assert(util.isInt(generationID),
             "swirlnet: internal error: invalid generationID: " + genomeID);
-    console.assert(speciesHint === undefined || util.isInt(speciesHint),
+    assert(speciesHint === undefined || util.isInt(speciesHint),
             "swirlnet: internal error: invalid speciesHint: " + speciesHint);
 
     init = function () {
@@ -77,10 +78,10 @@ makeGenome = function (genomeID, generationID, speciesHint) {
     getGeneInnovationNumbers = function (type, subtype) {
         var gene, geneInnovationNumbers = [];
 
-        console.assert(type === undefined || type === "node" || type === "connection",
+        assert(type === undefined || type === "node" || type === "connection",
                 "swirlnet: internal error: invalid gene type: " + type);
 
-        console.assert(subtype === undefined || (type === "node"
+        assert(subtype === undefined || (type === "node"
                     && (subtype === "bias" || subtype === "input" || subtype === "hidden" || subtype === "output")),
                 "swirlnet: internal error: invalid gene subtype: " + subtype + " for type: " + type);
 
@@ -111,7 +112,7 @@ makeGenome = function (genomeID, generationID, speciesHint) {
 
     getGene = function (innovationNumber) {
         var gene = getGeneSlot(innovationNumber);
-        console.assert(gene !== undefined,
+        assert(gene !== undefined,
                 "swirlnet: internal error: no gene with innovation number " + innovationNumber + " exists in its proper slot within this genome.");
         return gene;
     };
@@ -119,7 +120,7 @@ makeGenome = function (genomeID, generationID, speciesHint) {
     getGeneSlot = function (innovationNumber) {
         var gene = genesList[innovationNumber];
         if (gene !== undefined) {
-            console.assert(gene.getInnovationNumber() === innovationNumber,
+            assert(gene.getInnovationNumber() === innovationNumber,
                     "swirlnet: internal error: mismatched gene innovation numbers: " + innovationNumber + " and " + gene.getInnovationNumber());
         }
         return gene;
@@ -130,7 +131,7 @@ makeGenome = function (genomeID, generationID, speciesHint) {
         innovationNumber = gene.getInnovationNumber();
         originalGene = getGeneSlot(innovationNumber);
         if (originalGene !== undefined) {
-            console.assert(false,
+            assert(false,
                     "swirlnet: internal error: gene with innovation number " + innovationNumber + " (" + originalGene.getInnovationNumber() + ") already exists in this genome.");
         }
         overwriteGene(gene);
@@ -179,7 +180,7 @@ makeGenome = function (genomeID, generationID, speciesHint) {
             var gene, innovationNumber;
             innovationNumber = parseInt(key, 10);
             gene = getGene(innovationNumber);
-            console.assert(gene.getInnovationNumber() === innovationNumber,
+            assert(gene.getInnovationNumber() === innovationNumber,
                     "swirlnet: internal error: mismatched gene innovation numbers: " + innovationNumber + " and " + gene.getInnovationNumber());
             genomeObj.genes.push(JSON.parse(gene.stringify()));
         });

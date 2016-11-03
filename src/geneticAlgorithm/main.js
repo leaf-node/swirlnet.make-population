@@ -13,7 +13,7 @@
 // limitations under the License.
 
 var makePopulation, generation, innovations,
-    reproduction, settings, speciation, util;
+    reproduction, settings, speciation, util, assert;
 
 speciation = require('./speciation.js');
 generation = require('./generation.js');
@@ -22,6 +22,7 @@ reproduction = require('./reproduction.js');
 
 settings = require('./settings.js');
 util = require('../util.js');
+assert = require('assert');
 
 // creates a population that reproduces based on fitness
 makePopulation = function (inputCount, outputCount, userSettings) {
@@ -36,9 +37,9 @@ makePopulation = function (inputCount, outputCount, userSettings) {
     // initializes population and semi-global variables
     init = function () {
 
-        console.assert(util.isInt(inputCount) && inputCount >= 0,
+        assert(util.isInt(inputCount) && inputCount >= 0,
                 "swirlnet: error: invalid input count: " + inputCount);
-        console.assert(util.isInt(outputCount) && outputCount >= 1,
+        assert(util.isInt(outputCount) && outputCount >= 1,
                 "swirlnet: error: invalid output count: " + outputCount);
 
         settings.initSettings(userSettings);
@@ -67,9 +68,9 @@ makePopulation = function (inputCount, outputCount, userSettings) {
     // for setting the fitness of a tested genome
     setFitness = function (genomeID, fitness) {
 
-        console.assert(util.isInt(genomeID) && genomeID >= 0 && genomeID < settings.getSetting("populationSize"),
+        assert(util.isInt(genomeID) && genomeID >= 0 && genomeID < settings.getSetting("populationSize"),
                 "swirlnet: error: invalid genomeID: " + genomeID);
-        console.assert(typeof fitness === "number" && !isNaN(fitness),
+        assert(typeof fitness === "number" && !isNaN(fitness),
                 "swirlnet: error: invalid fitness: " + fitness);
 
         reproduction.setFitness(genomeID, fitness);
@@ -80,7 +81,7 @@ makePopulation = function (inputCount, outputCount, userSettings) {
 
         population = reproduction.reproduce(population);
 
-        console.assert(population.length === settings.getSetting("populationSize"), "swirlnet: internal error: invalid population size: " + population.length);
+        assert(population.length === settings.getSetting("populationSize"), "swirlnet: internal error: invalid population size: " + population.length);
     };
 
     // returns the current generation number

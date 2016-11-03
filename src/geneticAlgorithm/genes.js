@@ -14,10 +14,12 @@
 
 var makeSuperGene, makeNodeGene, makeConnectionGene,
     makeNodeGeneHelper, makeConnectionGeneHelper,
-    innovations, util;
+    innovations, util, assert;
 
 innovations = require('./innovations.js');
 util = require('../util.js');
+
+assert = require('assert');
 
 // makes a node gene
 // position refers to the eventual position of an input or output node in the input or output array.
@@ -28,7 +30,7 @@ makeNodeGene = function (subtype, activationFunction, position, upstream, downst
 
     var innovationNumber;
 
-    console.assert(((subtype === "bias" || subtype === "input" || subtype === "output")
+    assert(((subtype === "bias" || subtype === "input" || subtype === "output")
                 && upstream === undefined && downstream === undefined)
             || (subtype === "hidden" && util.isInt(upstream) && util.isInt(downstream)),
             "swirlnet: internal error: invalid node gene upstream node: " + upstream +
@@ -65,11 +67,11 @@ makeNodeGeneHelper = function (innovationNumber, subtype, activationFunction, po
         getPosition,
         copy, stringify;
 
-    console.assert(subtype === "bias" || subtype === "input" || subtype === "output" || subtype === "hidden",
+    assert(subtype === "bias" || subtype === "input" || subtype === "output" || subtype === "hidden",
             "swirlnet: internal error: invalid node gene subtype: " + subtype);
-    console.assert(typeof activationFunction === "string" || activationFunction === null,
+    assert(typeof activationFunction === "string" || activationFunction === null,
             "swirlnet: internal error: invalid node gene activation function: " + activationFunction);
-    console.assert(((subtype === "bias" || subtype === "hidden") && position === undefined)
+    assert(((subtype === "bias" || subtype === "hidden") && position === undefined)
             || ((subtype === "input" || subtype === "output") && util.isInt(position)),
             "swirlnet: internal error: invalid node gene position: " + position + " for node subtype: " + subtype);
 
@@ -126,11 +128,11 @@ makeConnectionGeneHelper = function (innovationNumber, upstream, downstream, wei
         isEnabled, getUpstream, getDownstream, getWeight,
         enable, disable, setWeight, addToWeight, copy, stringify;
 
-    console.assert(util.isInt(upstream),
+    assert(util.isInt(upstream),
             "swirlnet: internal error: invalid connection gene upstream node: " + upstream);
-    console.assert(util.isInt(downstream),
+    assert(util.isInt(downstream),
             "swirlnet: internal error: invalid connection gene downstream node: " + downstream);
-    console.assert(typeof weight === "number" && !isNaN(weight),
+    assert(typeof weight === "number" && !isNaN(weight),
             "swirlnet: internal error: invalid connection gene weight: " + weight);
 
     superThat = makeSuperGene(innovationNumber, "connection");
@@ -225,9 +227,9 @@ makeSuperGene = function (innovationNumber, type) {
 
     var that, getInnovationNumber, getType;
 
-    console.assert(util.isInt(innovationNumber),
+    assert(util.isInt(innovationNumber),
             "swirlnet: internal error: invalid gene innovation number: " + innovationNumber);
-    console.assert(type === "connection" || type === "node",
+    assert(type === "connection" || type === "node",
             "swirlnet: internal error: invalid gene type: " + type);
 
     getInnovationNumber = function () {

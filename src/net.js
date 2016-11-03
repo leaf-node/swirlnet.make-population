@@ -13,9 +13,10 @@
 // limitations under the License.
 
 
-var makeNet, util;
+var makeNet, util, assert;
 
 util = require('./util.js');
+assert = require('assert');
 
 // create an artifical network based on internal phenotype format
 makeNet = function (unparsed_phenotype) {
@@ -32,26 +33,26 @@ makeNet = function (unparsed_phenotype) {
     // prepares new net object
     init = function () {
 
-        console.assert(typeof unparsed_phenotype === "string",
+        assert(typeof unparsed_phenotype === "string",
                 "swirlnet: internal error: invalid phenotype format. phenotype must be a string.");
 
         phenotype = JSON.parse(unparsed_phenotype);
         flush();
         inputs = [];
 
-        console.assert(phenotype.format === "swirlnetPhenotype",
+        assert(phenotype.format === "swirlnetPhenotype",
                 "swirlnet: internal error: invalid phenotype format: " + phenotype.format);
-        console.assert(phenotype.version === "0.0",
+        assert(phenotype.version === "0.0",
                 "swirlnet: internal error: invalid phenotype version: " + phenotype.version);
 
-        console.assert(phenotype.roles !== undefined
+        assert(phenotype.roles !== undefined
                 && phenotype.roles.bias !== undefined && phenotype.roles.input !== undefined
                 && phenotype.roles.output !== undefined && phenotype.roles.hidden !== undefined,
                     "swirlnet: internal error: 'roles' must contain bias, input, output and hidden members.");
 
-        console.assert(phenotype.roles.output.length > 0,
+        assert(phenotype.roles.output.length > 0,
                     "swirlnet: internal error: invalid number of output nodes: " + phenotype.roles.bias.length + " (should be greater than 0)");
-        console.assert(phenotype.roles.bias.length === 1,
+        assert(phenotype.roles.bias.length === 1,
                     "swirlnet: internal error: invalid number of bias nodes: " + phenotype.roles.bias.length + " (should be 1)");
     };
 
@@ -67,7 +68,7 @@ makeNet = function (unparsed_phenotype) {
 
     // sets inputs
     setInputs = function (list) {
-        console.assert(list.length === phenotype.roles.input.length,
+        assert(list.length === phenotype.roles.input.length,
                 "swirlnet: error: invalid number of inputs: " + list.length + " (should be " + phenotype.roles.input.length + ")");
         inputs = list;
     };
@@ -80,7 +81,7 @@ makeNet = function (unparsed_phenotype) {
             stepCount = 1;
         }
 
-        console.assert(util.isInt(stepCount) && stepCount > 0,
+        assert(util.isInt(stepCount) && stepCount > 0,
                 "swirlnet: error: invalid number of steps to take: " + stepCount);
 
         // applies bias
@@ -163,7 +164,7 @@ makeNet = function (unparsed_phenotype) {
             });
         }
 
-        console.assert(nodeCount === phenotype.connections.length,
+        assert(nodeCount === phenotype.connections.length,
                 "swirlnet: internal error: non-matching node counts in network.");
 
         return nodeCount;

@@ -13,9 +13,10 @@
 // limitations under the License.
 
 
-var makeArchive, util;
+var makeArchive, util, assert;
 
 util = require('../util.js');
+assert = require('assert');
 
 
 // factory function that creates an archive object used for performing "novelty search"
@@ -27,15 +28,15 @@ makeArchive = function (options) {
         init, noteBehavior, getSparsities, archiveAndClear, getArchive, getArchiveLength, pruneArchive,
         calculateSparsities, measureSparsity, defaultBehaviorDistanceFunction, measureBehaviorDistance;
 
-    console.assert(typeof options === "object",
+    assert(typeof options === "object",
             "swirlnet: error: novelty search options argument must be an object.");
-    console.assert(util.isInt(options.kNearestNeighbors) && options.kNearestNeighbors > 0,
+    assert(util.isInt(options.kNearestNeighbors) && options.kNearestNeighbors > 0,
             "swirlnet: error: kNearestNeighbors option must be an integer greater than zero.");
-    console.assert(util.isInt(options.archiveThreshold) && options.archiveThreshold > 0,
+    assert(util.isInt(options.archiveThreshold) && options.archiveThreshold > 0,
             "swirlnet: error: archiveThreshold must be an integer greater than zero.");
-    console.assert(typeof options.behaviorDistanceFunction === "function" || options.behaviorDistanceFunction === undefined,
+    assert(typeof options.behaviorDistanceFunction === "function" || options.behaviorDistanceFunction === undefined,
             "swirlnet: error: behaviorDistanceFunction must be a function or unspecified (undefined).");
-    console.assert((util.isInt(options.maxArchiveSize) && options.maxArchiveSize > 0) || options.maxArchiveSize === undefined,
+    assert((util.isInt(options.maxArchiveSize) && options.maxArchiveSize > 0) || options.maxArchiveSize === undefined,
             "swirlnet: error: maxArchiveSize must be a positive integer or unspecified (undefined).");
 
     // sets the distance function
@@ -61,11 +62,11 @@ makeArchive = function (options) {
             dimensionality = behavior.length;
         }
 
-        console.assert(Array.isArray(behavior),
+        assert(Array.isArray(behavior),
                 "swirlnet: error: behavior must be an array.");
-        console.assert(typeof genome === "string",
+        assert(typeof genome === "string",
                 "swirlnet: error: genome must be a string.");
-        console.assert(behavior.length === dimensionality,
+        assert(behavior.length === dimensionality,
                 "swirlnet: error: behavior dimensionality must match prior behavior dimensionalities: " + dimensionality);
 
         recentBehaviors.push([behavior, genome]);
@@ -126,9 +127,9 @@ makeArchive = function (options) {
 
         var i;
 
-        console.assert(recentBehaviors.length > 0,
+        assert(recentBehaviors.length > 0,
                 "swirlnet: error: recent behavior count must be greater than zero.");
-        console.assert(sparsities.length === 0 || sparsities.length === recentBehaviors.length,
+        assert(sparsities.length === 0 || sparsities.length === recentBehaviors.length,
                 "swirlnet: error: sparsities may only be calculated once all behaviors have been added.");
 
         if (sparsities.length !== recentBehaviors.length) {
@@ -146,7 +147,7 @@ makeArchive = function (options) {
 
         var behavior, distances, i, effectiveKNearestNeighbors, sparsity;
 
-        console.assert(util.isInt(recentBehaviorIndex) && recentBehaviorIndex >= 0 && recentBehaviorIndex < recentBehaviors.length,
+        assert(util.isInt(recentBehaviorIndex) && recentBehaviorIndex >= 0 && recentBehaviorIndex < recentBehaviors.length,
                 "swirlnet: internal error: recent behavior index must be an integer greater than or equal to zero and less than the number of recent behaviors.");
 
         behavior = recentBehaviors[recentBehaviorIndex][0];
@@ -178,9 +179,9 @@ makeArchive = function (options) {
 
         var distanceSquared, i;
 
-        console.assert(Array.isArray(behavior0) && Array.isArray(behavior1),
+        assert(Array.isArray(behavior0) && Array.isArray(behavior1),
                 "swirlnet: internal error: behaviors must be arrays.");
-        console.assert(behavior0.length === behavior1.length,
+        assert(behavior0.length === behavior1.length,
                 "swirlnet: internal error: behaviors have differing dimensionality.");
 
         distanceSquared = 0;

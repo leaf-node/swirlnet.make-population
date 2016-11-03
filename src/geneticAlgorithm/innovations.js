@@ -19,9 +19,10 @@ var nextInnovationNumber, innovationHistory,
     nonMatchingInnovations,
     getNextInnovationNumber,
     getInnovationHistory,
-    resetInnovationHistory, util;
+    resetInnovationHistory, util, assert;
 
 util = require('../util.js');
+assert = require('assert');
 
 // picks the innovation number for a new gene.
 // if the pattern is created previously in this generation, or if the pattern
@@ -34,26 +35,26 @@ pickInnovationNumber = function (innovation) {
     var i, innovationNumber, oldInnovation, oldInnovationNumber,
         innovationHistory, historyToUse;
 
-    console.assert(innovation[0] === "connection" || innovation[0] === "node",
+    assert(innovation[0] === "connection" || innovation[0] === "node",
             "swirlnet: internal error: invalid innovation type: " + innovation[0]);
 
     if (innovation[0] === "connection") {
 
-        console.assert(util.isInt(innovation[1]),
+        assert(util.isInt(innovation[1]),
                 "swirlnet: internal error: invalid upstream connection: " + innovation[1]);
-        console.assert(util.isInt(innovation[2]),
+        assert(util.isInt(innovation[2]),
                 "swirlnet: internal error: invalid downstream connection: " + innovation[2]);
     } else {
 
-        console.assert(innovation[1] === "bias" || innovation[1] === "input" || innovation[1] === "output" || innovation[1] === "hidden",
+        assert(innovation[1] === "bias" || innovation[1] === "input" || innovation[1] === "output" || innovation[1] === "hidden",
                 "swirlnet: internal error: invalid node subtype: " + innovation[1]);
-        console.assert(innovation[2] === null || innovation[2] === "sigmoid",
+        assert(innovation[2] === null || innovation[2] === "sigmoid",
                 "swirlnet: internal error: invalid node activation function: " + innovation[2]);
-        console.assert(innovation[3] === undefined || util.isInt(innovation[3]),
+        assert(innovation[3] === undefined || util.isInt(innovation[3]),
                 "swirlnet: internal error: invalid node position: " + innovation[3]);
-        console.assert(innovation[4] === undefined || util.isInt(innovation[4]),
+        assert(innovation[4] === undefined || util.isInt(innovation[4]),
                 "swirlnet: internal error: invalid node upstream node: " + innovation[4]);
-        console.assert(innovation[5] === undefined || util.isInt(innovation[5]),
+        assert(innovation[5] === undefined || util.isInt(innovation[5]),
                 "swirlnet: internal error: invalid node downstream node: " + innovation[5]);
     }
 
@@ -160,7 +161,7 @@ getNextInnovationNumber = function () {
 
     var newInnovationNumber;
 
-    console.assert(nextInnovationNumber !== undefined, "swirlnet: internal error: innovations.init() needs to be run!");
+    assert(nextInnovationNumber !== undefined, "swirlnet: internal error: innovations.init() needs to be run!");
 
     newInnovationNumber = nextInnovationNumber;
     nextInnovationNumber += 1;
@@ -173,7 +174,7 @@ getInnovationHistory = function () {
 
     "use strict";
 
-    console.assert(innovationHistory !== undefined, "swirlnet: internal error: resetInnovationHistory() needs to be run!");
+    assert(innovationHistory !== undefined, "swirlnet: internal error: resetInnovationHistory() needs to be run!");
 
     return innovationHistory;
 };
@@ -183,7 +184,7 @@ init = function () {
 
     "use strict";
 
-    console.assert(nextInnovationNumber === undefined, "swirlnet: internal error: innovations.init() should only be run once!");
+    assert(nextInnovationNumber === undefined, "swirlnet: internal error: innovations.init() should only be run once!");
 
     nextInnovationNumber = 0;
 

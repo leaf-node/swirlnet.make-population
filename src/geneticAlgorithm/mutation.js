@@ -18,11 +18,12 @@ var randomlyMutate, addConnection, insertNewNode,
     listUnconnectedNodes, isConnected, willBeCyclic,
     gaussianRandomNumber, makeRandomWeight,
     randomizeWeight, perturbWeight,
-    genes, settings, util, ct, gaussian;
+    genes, settings, util, ct, gaussian, assert;
 
 genes = require('./genes.js');
 settings = require('./settings.js');
 util = require('../util.js');
+assert = require('assert');
 
 
 // cycle detection
@@ -38,7 +39,7 @@ randomlyMutate = function (genome, forceMutate) {
 
     var connections, uniformPerturbance;
 
-    console.assert(typeof forceMutate === "boolean" || forceMutate === undefined,
+    assert(typeof forceMutate === "boolean" || forceMutate === undefined,
             "swirlnet: internal error: invalid non-boolean value for forceMutate: " + forceMutate);
 
     if (Math.random() < settings.getSetting("genomeWeightMutationRate")
@@ -102,7 +103,7 @@ addConnection = function (genome, upstream, downstream, weight) {
     var connections = genome.getGeneInnovationNumbers("connection");
     connections.forEach(function (innovationNumber) {
         var gene = genome.getGene(innovationNumber);
-        console.assert(gene.getUpstream() !== upstream || gene.getDownstream() !== downstream,
+        assert(gene.getUpstream() !== upstream || gene.getDownstream() !== downstream,
             "swirlnet: internal error: there is already a connection with upstream: " + upstream + " and downstream: " + downstream);
     });
     genome.addGene(genes.makeConnectionGene(upstream, downstream, weight));
@@ -116,8 +117,8 @@ insertNewNode = function (genome, upstream, downstream) {
 
     var connections, matchingGene, newNode;
 
-    console.assert(util.isInt(upstream), "swirlnet: internal error: bad upstream node: " + upstream);
-    console.assert(util.isInt(downstream), "swirlnet: internal error: bad downstream node: " + downstream);
+    assert(util.isInt(upstream), "swirlnet: internal error: bad upstream node: " + upstream);
+    assert(util.isInt(downstream), "swirlnet: internal error: bad downstream node: " + downstream);
 
     connections = genome.getGeneInnovationNumbers("connection");
 
@@ -127,12 +128,12 @@ insertNewNode = function (genome, upstream, downstream) {
         gene = genome.getGene(connection);
 
         if (upstream === gene.getUpstream() && downstream === gene.getDownstream()) {
-            console.assert(matchingGene === undefined,
+            assert(matchingGene === undefined,
                 "swirlnet: internal error: multiple connection genes found with upstream: " + upstream + " and downstream: " + downstream + " nodes.");
             matchingGene = gene;
         }
     });
-    console.assert(matchingGene !== undefined,
+    assert(matchingGene !== undefined,
                 "swirlnet: internal error: no connection gene found with upstream: " + upstream + " and downstream: " + downstream + " nodes.");
 
     matchingGene.disable();
@@ -207,7 +208,7 @@ toggleRandomConnection = function (genome, action) {
 
     var connections, randomSelection, gene;
 
-    console.assert(action === "disable" || action === "enable",
+    assert(action === "disable" || action === "enable",
             "swirlnet: internal error: invalid gene toggle action: " + action);
 
     connections = genome.getGeneInnovationNumbers("connection");
@@ -299,7 +300,7 @@ willBeCyclic = function (genome, upstream, downstream) {
     // it's ok if both upstream and downstream are undefined, but not just one.
     // if no upstream or downstream nodes are specified,
     // the network is analyzed as is.
-    console.assert((((upstream !== null && downstream !== null)
+    assert((((upstream !== null && downstream !== null)
             && (upstream !== undefined && downstream !== undefined))
             || (upstream === undefined && downstream === undefined)),
             "swirlnet: internal error: invalid upstream and downstream: "

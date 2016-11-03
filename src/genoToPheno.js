@@ -13,9 +13,10 @@
 // limitations under the License.
 
 
-var genoToPheno, util, swirlnetPhenotypeVersion;
+var genoToPheno, util, swirlnetPhenotypeVersion, assert;
 
 util = require('./util.js');
+assert = require('assert');
 
 swirlnetPhenotypeVersion = "0.0";
 
@@ -32,16 +33,16 @@ genoToPheno = function (swirlnetGenome) {
         nextNodeID, innovationNodeIDMap, getNodeID,
         node;
 
-    console.assert(typeof swirlnetGenome === "string",
+    assert(typeof swirlnetGenome === "string",
             "swirlnet: internal error: invalid format. genome must be a string.");
 
     genome = JSON.parse(swirlnetGenome);
 
-    console.assert(genome.format === "swirlnetGenome",
+    assert(genome.format === "swirlnetGenome",
             "swirlnet: internal error: invalid format: " + genome.format);
-    console.assert(genome.version === "0.0",
+    assert(genome.version === "0.0",
             "swirlnet: internal error: invalid genome version: " + genome.version);
-    console.assert(genome.type === "classic",
+    assert(genome.type === "classic",
             "swirlnet: internal error: invalid genome type: " + genome.type);
 
     phenotype = {
@@ -85,11 +86,11 @@ genoToPheno = function (swirlnetGenome) {
                     nodeID = getNodeID(innovNumber);
 
                     if (role === "hidden" || role === "bias") {
-                        console.assert(position === undefined || position === null,
+                        assert(position === undefined || position === null,
                                 "swirlnet: internal error: invalid position for hidden or bias node: " + position);
                         phenotype.roles[role].push(nodeID);
                     } else {
-                        console.assert(phenotype.roles[role][position] === undefined,
+                        assert(phenotype.roles[role][position] === undefined,
                                 "swirlnet: internal error: multiple nodes share the same position: " + position);
                         phenotype.roles[role][position] = nodeID;
                     }
@@ -122,19 +123,19 @@ genoToPheno = function (swirlnetGenome) {
     // positions.
     for (i = 0; i < phenotype.roles.input.length; i += 1) {
         node = phenotype.roles.input[i];
-        console.assert(util.isInt(node),
+        assert(util.isInt(node),
                 "swirlnet: internal error: invalid node ID: " + node + " at position: " + i);
     }
 
     for (i = 0; i < phenotype.roles.output.length; i += 1) {
         node = phenotype.roles.output[i];
-        console.assert(util.isInt(node),
+        assert(util.isInt(node),
                 "swirlnet: internal error: invalid node ID: " + node + " at position: " + i);
     }
 
-    console.assert(phenotype.roles.output.length > 0,
+    assert(phenotype.roles.output.length > 0,
                 "swirlnet: internal error: invalid number of output nodes: " + phenotype.roles.bias.length + " (should be greater than 0)");
-    console.assert(phenotype.roles.bias.length === 1,
+    assert(phenotype.roles.bias.length === 1,
                 "swirlnet: internal error: invalid number of bias nodes: " + phenotype.roles.bias.length + " (should be 1)");
 
 

@@ -26,11 +26,12 @@ var currentCompatibilityThreshold, speciesRepresentatives,
     getCompatibilityThreshold,
     countDisjointAndExcess,
     innovations,
-    settings;
+    settings, assert;
 
 innovations = require('./innovations.js');
-
 settings = require('./settings.js');
+
+assert = require('assert');
 
 // group genomes into species based on their compatibility distance
 speciate = function (population) {
@@ -79,8 +80,8 @@ compatibilityDistance = function (genome1, genome2) {
         compatDistance, disjointAndExcessCount,
         normalizationFactor;
 
-    console.assert(genome1 !== undefined, "genome1: " + genome1);
-    console.assert(genome2 !== undefined, "genome2: " + genome2);
+    assert(genome1 !== undefined, "genome1: " + genome1);
+    assert(genome2 !== undefined, "genome2: " + genome2);
 
     disjointAndExcessCount = countDisjointAndExcess(genome1, genome2);
 
@@ -153,8 +154,8 @@ countDisjointAndExcess = function (genome1, genome2) {
     var excessCount, disjointCount,
         lesserMaxInnovationNumber, nonMatchingInnovMatrix;
 
-    console.assert(genome1 !== undefined, "genome1: " + genome1);
-    console.assert(genome2 !== undefined, "genome2: " + genome2);
+    assert(genome1 !== undefined, "genome1: " + genome1);
+    assert(genome2 !== undefined, "genome2: " + genome2);
 
     excessCount = 0;
     disjointCount = 0;
@@ -217,8 +218,8 @@ isInSameSpecies = function (genome1, genome2) {
 
     "use strict";
 
-    console.assert(genome1 !== undefined, "bad genome: " + genome1);
-    console.assert(genome2 !== undefined, "bad genome: " + genome2);
+    assert(genome1 !== undefined, "bad genome: " + genome1);
+    assert(genome2 !== undefined, "bad genome: " + genome2);
 
     if (compatibilityDistance(genome1, genome2) < getCompatibilityThreshold()) {
         return true;

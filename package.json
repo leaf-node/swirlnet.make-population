@@ -16,7 +16,8 @@
   "dependencies": {
       "cycle-test": "1.x",
       "gaussian": "1.x",
-      "clone": "1.x"
+      "clone": "1.x",
+      "assert": "1.x"
   },
   "keywords": [
     "NEAT",

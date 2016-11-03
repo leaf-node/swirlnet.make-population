@@ -18,12 +18,13 @@ var reproduce, setFitness, getFitness,
     bumpCurrentGenerationNumber,
     getCurrentGenerationNumber,
     settings, speciation, util, mutation, innovations,
-    fitnessList, currentGenerationNumber;
+    fitnessList, currentGenerationNumber, assert;
 
 
 speciation = require('./speciation.js');
 mutation = require('./mutation.js');
 innovations = require('./innovations.js');
+assert = require('assert');
 
 settings = require('./settings.js');
 util = require('../util.js');
@@ -36,11 +37,11 @@ reproduce = function (population) {
     var j, offspring, offspringCounts, fittest, newGenome, fitness,
         nextNewGenomeID;
 
-    console.assert(population !== undefined, "bad population: " + population);
+    assert(population !== undefined, "bad population: " + population);
 
     for (j = 0; j < settings.getSetting("populationSize"); j += 1) {
         fitness = getFitness(j);
-        console.assert(typeof fitness === 'number' && !isNaN(fitness), "swirlnet: error: bad fitness for genomeID " + j + ": " + fitness + ". set the fitness of every genome before reproduction.");
+        assert(typeof fitness === 'number' && !isNaN(fitness), "swirlnet: error: bad fitness for genomeID " + j + ": " + fitness + ". set the fitness of every genome before reproduction.");
     }
 
     nextNewGenomeID = 0;
@@ -184,7 +185,7 @@ chooseOffspringCounts = function (population) {
 
     speciesScores = [];
 
-    console.assert(population !== undefined && population.length !== 0, "bad population: " + population);
+    assert(population !== undefined && population.length !== 0, "bad population: " + population);
 
     population.forEach(function (genome) {
 
@@ -279,8 +280,8 @@ setFitness = function (genomeID, fitness) {
 
     "use strict";
 
-    console.assert(typeof fitness === 'number' && !isNaN(fitness), "swirlnet: error: bad fitness: " + fitness);
-    console.assert(fitness >= 0, "swirlnet: error: fitness must not be negative: " + fitness);
+    assert(typeof fitness === 'number' && !isNaN(fitness), "swirlnet: error: bad fitness: " + fitness);
+    assert(fitness >= 0, "swirlnet: error: fitness must not be negative: " + fitness);
 
     fitnessList[genomeID] = fitness;
 };

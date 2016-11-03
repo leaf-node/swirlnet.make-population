@@ -14,30 +14,31 @@
 
 var defaults, settings, defaults,
     initSettings, getSetting, getSettings,
-    util;
+    util, assert;
 
 defaults = require('../defaults.js');
 
 util = require('../util.js');
+assert = require('assert');
 
 // initializes settings
 initSettings = function (userSettings) {
 
     "use strict";
 
-    console.assert(settings === undefined, "swirlnet: internal error: cannot initialize settings more than once.");
+    assert(settings === undefined, "swirlnet: internal error: cannot initialize settings more than once.");
 
     userSettings = userSettings || {};
 
     Object.keys(userSettings).forEach(function (setting) {
-        console.assert(defaults[setting] !== undefined, "swirlnet: error: bad setting name: " + setting);
-        console.assert(typeof defaults[setting] === "number" || typeof defaults[setting] === "boolean",
+        assert(defaults[setting] !== undefined, "swirlnet: error: bad setting name: " + setting);
+        assert(typeof defaults[setting] === "number" || typeof defaults[setting] === "boolean",
                 "swirlnet: internal error: unexpected default setting type: " + typeof defaults[setting]);
         if (typeof defaults[setting] === "number") {
-            console.assert(typeof userSettings[setting] === "number",
+            assert(typeof userSettings[setting] === "number",
                     "swirlnet: error: bad type for setting: " + setting + " (" + typeof userSettings[setting] + ").");
         } else if (typeof defaults[setting] === "boolean") {
-            console.assert(typeof userSettings[setting] === "boolean",
+            assert(typeof userSettings[setting] === "boolean",
                     "swirlnet: error: bad type for setting: " + setting + " (" + typeof userSettings[setting] + ").");
         }
     });
@@ -54,7 +55,7 @@ getSettings = function () {
 
     "use strict";
 
-    console.assert(settings !== undefined, "swirlnet: internal error: cannot return settings before they are initialized.");
+    assert(settings !== undefined, "swirlnet: internal error: cannot return settings before they are initialized.");
 
     return util.copy(settings);
 };
@@ -64,7 +65,7 @@ getSetting = function (setting) {
 
     "use strict";
 
-    console.assert(settings[setting] !== undefined, "swirlnet: internal error: bad settings name: " + setting);
+    assert(settings[setting] !== undefined, "swirlnet: internal error: bad settings name: " + setting);
 
     return util.copy(settings[setting]);
 };
