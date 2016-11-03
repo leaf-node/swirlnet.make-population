@@ -11,11 +11,12 @@ suggest that new genomes produced through crossover should randomly inherit the
 disablement of a connection gene if it is disabled in either parent, regardless
 of the relative fitness of the parent carrying the disabled gene.
 
-This leads to a choice between, at one extreme, allowing frequent inheritence
-of disablement from weak parents, or rarely inheriting disablement from fit
-parents, at the other.
-Neither option is appealing, as both options frequently disrupt effective
-structure.
+This leads to a choice between, at one extreme, allowing rather frequent
+inheritence of disablement from weak parents, or rarely inheriting disablement
+from fit parents, at the other.
+Since relative fitness determines which parent passes on excess and disjoint
+genes, neither option is appealing as both options frequently disrupt
+effective structure.
 Attempting to compromise with a fifty percent chance of inheriting
 disablement from either parent leads to frequently disrupted structure in both
 of these problematic scenarios.
@@ -46,7 +47,7 @@ connection.
 Once all connections are deleted, genomes always create the same output that
 is situated half way between the correct and inccorect answer for every test case.
 In early stages of evolution, this disconnected genome may outperform connected
-genomes.  Using the above approach solves this issue.
+genomes.  Using the above approach solves this particular issue.
 
 * By changing four settings in swirlnet you may differentiate the probabilities
   of inheriting disablement, inheriting enablement or non-interference, each
@@ -90,7 +91,6 @@ ones.
 
 ## Other differences
 
-There are likely many other unmentioned ways in which this library differs from
-NEAT, as described in the original paper, and the various implementations of
-NEAT. Some of those difference may be minor, others may be significant.
+There are likely many other undocumented ways in which this library differs
+from other implementations of NEAT.
 
