@@ -17,7 +17,7 @@ var makeSuperGene, makeNodeGene, makeConnectionGene,
     innovations, util, assert;
 
 innovations = require('./innovations.js');
-util = require('../util.js');
+util = require('swirlnet.util');
 
 assert = require('assert');
 

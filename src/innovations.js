@@ -21,7 +21,7 @@ var nextInnovationNumber, innovationHistory,
     getInnovationHistory,
     resetInnovationHistory, util, assert;
 
-util = require('../util.js');
+util = require('swirlnet.util');
 assert = require('assert');
 
 // picks the innovation number for a new gene.

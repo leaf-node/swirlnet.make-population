@@ -1,30 +1,22 @@
-# swirlnet
+# swirlnet.make-population
 
-This library evolves neural networks that may perform well at some control
-tasks.
+This is part of a neural network evolution library named swirlnet.
 
-It is quite similar to NEAT (NeuroEvolution of Augmenting Topologies), but some
-of its features are not implemented.
-swirlnet also implements basic novelty search functionality.
-For an incomplete list of differences, refer to the `VS-NEAT.md` file.
+swirlnet is similar to NEAT (NeuroEvolution of Augmenting Topologies), but its
+feature set and behavior is somewhat different.
+
+## Documentation
+
+See the `API.md` file in the plain `swirlnet` repo for API documentation.
 
 ## Status
 
-The API of swirlnet is currently unstable.
-
-## Use
-
-See the `API.md` file for a description of the API.
-
-See the `test/xor.js` file for a demonstration of swirlnet's capability.
-
-    $ node ./test/xor.js
+The API of this library is currently unstable.
 
 ## License
 
 This software is licensed under the Apache License, Version 2.0.
 
 Networks, genomes and phenotypes that you evolve with this library are released
-to you under CC0. In other words you may use them freely and without need for
-attribution.
+to you under CC0. You may use them freely.
 

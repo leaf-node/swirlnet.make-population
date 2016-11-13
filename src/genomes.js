@@ -14,7 +14,7 @@
 
 var genes, util, settings, makeGenome, swirlnetGenomeVersion, assert;
 
-util = require('../util.js');
+util = require('swirlnet.util');
 genes = require('./genes.js');
 settings = require('./settings.js');
 assert = require('assert');

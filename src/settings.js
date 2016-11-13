@@ -16,9 +16,9 @@ var defaults, settings, defaults,
     initSettings, getSetting, getSettings,
     util, assert;
 
-defaults = require('../defaults.js');
+defaults = require('./defaults.js');
 
-util = require('../util.js');
+util = require('swirlnet.util');
 assert = require('assert');
 
 // initializes settings

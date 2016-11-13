@@ -27,7 +27,7 @@ innovations = require('./innovations.js');
 assert = require('assert');
 
 settings = require('./settings.js');
-util = require('../util.js');
+util = require('swirlnet.util');
 
 // performs crossover and mutation of fittest members of species
 reproduce = function (population) {

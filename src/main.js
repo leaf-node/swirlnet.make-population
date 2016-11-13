@@ -21,7 +21,7 @@ innovations = require('./innovations.js');
 reproduction = require('./reproduction.js');
 
 settings = require('./settings.js');
-util = require('../util.js');
+util = require('swirlnet.util');
 assert = require('assert');
 
 // creates a population that reproduces based on fitness
@@ -102,6 +102,6 @@ makePopulation = function (inputCount, outputCount, userSettings) {
     return that;
 };
 
-module.exports.makePopulation = makePopulation;
+module.exports = makePopulation;
 
 

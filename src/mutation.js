@@ -22,7 +22,7 @@ var randomlyMutate, addConnection, insertNewNode,
 
 genes = require('./genes.js');
 settings = require('./settings.js');
-util = require('../util.js');
+util = require('swirlnet.util');
 assert = require('assert');
 
 
