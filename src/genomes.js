@@ -19,7 +19,7 @@ genes = require('./genes.js');
 settings = require('./settings.js');
 assert = require('assert');
 
-swirlnetGenomeVersion = "0.0";
+swirlnetGenomeVersion = "0";
 
 // makes a new genome
 makeGenome = function (genomeID, generationID, speciesHint) {
