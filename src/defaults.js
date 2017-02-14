@@ -37,13 +37,13 @@ defaults.disjointCoefficient                = 1.0;
 defaults.excessCoefficient                  = 1.0;
 defaults.weightDifferenceCoefficient        = 0.4;
 
-// divide excess and disjoint terms by max gene count?  if set to false,
-// you may want to pick smaller disjoint and excess coefficients
-// and/or set a greater compatibilityThreshold and compatibilityModifier
-defaults.normalizeCoefficients              = true;
+// divide excess and disjoint terms by max gene count?  if set to true,
+// you may want to pick larger disjoint and excess coefficients
+// and/or set a smaller compatibilityThreshold and compatibilityModifier
+defaults.normalizeCoefficients              = false;
 // if normalizing coefficients, then when the gene count
 // is less than this number, do not normalize
-defaults.normalizationThreshold             = 20;
+defaults.normalizationThreshold             = 0;
 
 // the rate at which genomes from different species reproduce
 defaults.interspeciesMatingRate             = 0.001;
