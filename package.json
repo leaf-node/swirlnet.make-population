@@ -1,7 +1,9 @@
 {
   "name": "swirlnet.make-population",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Core genetic algorithm of swirlnet neuroevolution library",
+  "url": "https://gitlab.com/sudoman/swirlnet.make-population/issues",
+  "repository": "gitlab:sudoman/swirlnet.make-population",
   "main": "src/main.js",
   "files": [
       "src",
@@ -10,9 +12,9 @@
     ],
   "dependencies": {
       "swirlnet.util": "1.0.x",
-      "cycle-test": "1.x",
-      "gaussian": "1.x",
-      "assert": "1.x"
+      "cycle-test": "1.0.x",
+      "gaussian": "1.0.x",
+      "assert": "1.4.x"
   },
   "keywords": [
     "NEAT",
