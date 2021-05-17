@@ -1,6 +1,6 @@
 {
   "name": "swirlnet.make-population",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Core genetic algorithm of swirlnet neuroevolution library",
   "url": "https://github.com/leaf-node/swirlnet.make-population/issues",
   "repository": "github:leaf-node/swirlnet.make-population",
