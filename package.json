@@ -2,8 +2,8 @@
   "name": "swirlnet.make-population",
   "version": "1.0.0",
   "description": "Core genetic algorithm of swirlnet neuroevolution library",
-  "url": "https://gitlab.com/sudoman/swirlnet.make-population/issues",
-  "repository": "gitlab:sudoman/swirlnet.make-population",
+  "url": "https://github.com/leaf-node/swirlnet.make-population/issues",
+  "repository": "github:leaf-node/swirlnet.make-population",
   "main": "src/main.js",
   "files": [
       "src",
